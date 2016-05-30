@@ -5,7 +5,7 @@ package timeTableModel;
 
 // Start of user code (user defined imports)
 
-// End of user code
+// End of user cod
 
 /**
  * Description of TimeTable.
