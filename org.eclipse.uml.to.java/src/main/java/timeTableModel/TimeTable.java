@@ -16,7 +16,7 @@ public class TimeTable {
 	/**
 	 * Description of the property groupId.
 	 */
-	private Object groupId = 11;
+	private Object groupId = 48;
 	
 	// Start of user code (user defined attributes for TimeTable)
 	
