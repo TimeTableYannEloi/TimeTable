@@ -6,6 +6,7 @@ package timeTableController;
 // Start of user code (user defined imports)
 
 // End of user code
+// TEST CE NICO
 
 /**
  * Description of TimeTableController.
