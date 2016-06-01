@@ -3,6 +3,7 @@
  *******************************************************************************/
 package timeTableModel;
 import java.io.File;
+import java.io.FileOutputStream;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -25,8 +26,12 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import java.util.HashMap;
 import java.util.HashSet;
-
+import org.jdom2.*;
+import org.jdom2.input.SAXBuilder;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
 // Start of user code (user defined imports)
 
 // End of user code
@@ -34,12 +39,18 @@ import java.util.HashSet;
 /**
  * Description of TimeTableDB.
  * 
- * @author Eloi
  */
+
+
 public class TimeTableDB {
+	protected HashMap <Integer,Room> RoomMap = new HashMap();
+	protected HashMap <Integer,TimeTable> TimeTableMap = new HashMap();
 	/**
 	 * Description of the property timeTables.
 	 */
+	
+	
+	
 	public HashSet<TimeTable> timeTables = new HashSet<TimeTable>();
 
 	/**
@@ -64,14 +75,8 @@ public class TimeTableDB {
 	 * Le fichier contenant la base de donnÃ©es.
 	 * 
 	 */
-	private String file;
-	/**
-	 * 
-	 * Constructeur de TimeTableDB. 
-	 * 
-	 * @param file
-	 * 		Le nom du fichier qui contient la base de donnÃ©es.
-	 */
+	protected org.jdom2.Document file;
+
 	public TimeTableDB(String file) {
 		// Start of user code constructor for TimeTableDB)
 		super();
@@ -81,27 +86,24 @@ public class TimeTableDB {
 	/**
 	 * Description of the method saveDB.
 	 */
-	public String document;
 	
-	public void saveDB(String file) {
-		try
-		   {
-		      //On utilise ici un affichage classique avec getPrettyFormat()
-		      XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
-		      //Remarquez qu'il suffit simplement de créer une instance de FileOutputStream
-		      //avec en argument le nom du fichier pour effectuer la sérialisation.
-		      sortie.output(document, new FileOutputStream(file));
-		   }
-		   catch (java.io.IOException e){}
+	public void saveDB() {
+		try{
+			XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
+			sortie.output(file, new FileOutputStream("timeTableDB.xml"));}
+		catch (java.io.IOException e){}
 	}
 
 	/**
 	 * Description of the method loadDB.
 	 */
 	public void loadDB() {
-		// Start of user code for method loadDB
-		// End of user code
+		SAXBuilder sxb = new SAXBuilder();
+		try{
+			file = sxb.build(new File("timeTableDB.xml"));}
+			catch(Exception e){}
 	}
+	
 
 	/**
 	 * Description of the method CheckDB.
