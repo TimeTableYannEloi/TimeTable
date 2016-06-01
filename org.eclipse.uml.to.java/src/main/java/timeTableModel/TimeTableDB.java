@@ -28,6 +28,9 @@ import org.xml.sax.SAXException;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+
 import org.jdom2.*;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
@@ -86,6 +89,12 @@ public class TimeTableDB {
 	/**
 	 * Description of the method saveDB.
 	 */
+	public void showDB() {
+		try{
+			XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
+			sortie.output(file, ));}
+		catch (java.io.IOException e){}
+	}
 	
 	public void saveDB() {
 		try{
@@ -102,6 +111,42 @@ public class TimeTableDB {
 		try{
 			file = sxb.build(new File("timeTableDB.xml"));}
 			catch(Exception e){}
+		org.jdom2.Element TTDBElt = file.getRootElement();
+		List<org.jdom2.Element> RoomsElts = TTDBElt.getChildren("Rooms");
+		List<org.jdom2.Element> TTElts = TTDBElt.getChildren("TimeTables");
+		Iterator<org.jdom2.Element> ItRooms = RoomsElts.iterator();
+		Iterator<org.jdom2.Element> ItTT = TTElts.iterator();
+		while(ItRooms.hasNext()){
+			Element Room = (Element)ItRooms.next();
+			String RoomId = ((org.jdom2.Element) Room).getChild("RoomId").getText();
+			String capacity = ((org.jdom2.Element) Room).getChild("capacity").getText();
+			if (!(RoomMap.containsKey(Room))){
+				
+			}
+					}
+		
+		while(ItTT.hasNext()){
+			Element TT = (Element)ItTT.next();
+			String GroupId = ((org.jdom2.Element) TT).getChild("GroupId").getText();
+			List<org.jdom2.Element> BooksElts = ((org.jdom2.Element) TT).getChildren("Books");
+			Iterator<org.jdom2.Element> ItBooks = BooksElts.iterator();
+			while(ItBooks.hasNext()){
+				Element Books = (Element)ItTT.next();
+				String BookingId = ((org.jdom2.Element) Books).getChild("BookingId").getText();
+				String Login = ((org.jdom2.Element) Books).getChild("Login").getText();
+				String DateBegin = ((org.jdom2.Element) Books).getChild("DateBegin").getText();
+				String DateEnd = ((org.jdom2.Element) Books).getChild("DateEnd").getText();
+				String RoomId = ((org.jdom2.Element) Books).getChild("RoomId").getText();
+				if (!(TimeTableMap.containsKey(Books))){
+					
+				}
+			}
+						
+			if (!(TimeTableMap.containsKey(TT))){
+				
+			}
+					}
+
 	}
 	
 
