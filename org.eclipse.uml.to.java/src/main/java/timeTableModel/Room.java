@@ -18,7 +18,7 @@ public class Room {
 	/**
 	 * Description of the property capacity.
 	 */
-	public Integer capacity = Integer.valueOf(0);
+	public int capacity;
 
 	/**
 	 * Description of the property bookings.
@@ -28,7 +28,7 @@ public class Room {
 	/**
 	 * Description of the property roomId.
 	 */
-	public Integer roomId = Integer.valueOf(0);
+	public int roomId;
 
 	// Start of user code (user defined attributes for Room)
 
@@ -82,7 +82,7 @@ public class Room {
 	 * Returns capacity.
 	 * @return capacity 
 	 */
-	public Integer getCapacity() {
+	public int getCapacity() {
 		return this.capacity;
 	}
 
@@ -90,7 +90,7 @@ public class Room {
 	 * Sets a value to attribute capacity. 
 	 * @param newCapacity 
 	 */
-	public void setCapacity(Integer newCapacity) {
+	public void setCapacity(int newCapacity) {
 		this.capacity = newCapacity;
 	}
 
@@ -106,7 +106,7 @@ public class Room {
 	 * Returns roomId.
 	 * @return roomId 
 	 */
-	public Integer getRoomId() {
+	public int getRoomId() {
 		return this.roomId;
 	}
 
@@ -114,7 +114,7 @@ public class Room {
 	 * Sets a value to attribute roomId. 
 	 * @param newRoomId 
 	 */
-	public void setRoomId(Integer newRoomId) {
+	public void setRoomId(int newRoomId) {
 		this.roomId = newRoomId;
 	}
 
