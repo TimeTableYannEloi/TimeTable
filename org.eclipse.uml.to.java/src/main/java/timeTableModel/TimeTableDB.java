@@ -48,6 +48,7 @@ import org.jdom2.output.XMLOutputter;
 public class TimeTableDB {
 	protected HashMap <Integer,Room> RoomMap = new HashMap();
 	protected HashMap <Integer,TimeTable> TimeTableMap = new HashMap();
+	protected HashMap <Integer,Booking> BookingMap = new HashMap();
 	/**
 	 * Description of the property timeTables.
 	 */
@@ -118,32 +119,36 @@ public class TimeTableDB {
 		Iterator<org.jdom2.Element> ItTT = TTElts.iterator();
 		while(ItRooms.hasNext()){
 			Element Room = (Element)ItRooms.next();
-			String RoomId = ((org.jdom2.Element) Room).getChild("RoomId").getText();
-			String capacity = ((org.jdom2.Element) Room).getChild("capacity").getText();
-			if (!(RoomMap.containsKey(Room))){
+			Integer RoomId = ((org.jdom2.Element) Room).getChild("RoomId").getText();
+			String capacity = ((org.jdom2.Element) Room).getChild("Capacity").getText();
+			if (!(RoomMap.containsKey(RoomId))){
+				Room NRoom = new Room (RoomId, capacity);
+				RoomMap.put(RoomId,NRoom);
 				
 			}
 					}
 		
 		while(ItTT.hasNext()){
 			Element TT = (Element)ItTT.next();
-			String GroupId = ((org.jdom2.Element) TT).getChild("GroupId").getText();
+			Integer GroupId = ((org.jdom2.Element) TT).getChild("GroupId").getText();
 			List<org.jdom2.Element> BooksElts = ((org.jdom2.Element) TT).getChildren("Books");
 			Iterator<org.jdom2.Element> ItBooks = BooksElts.iterator();
 			while(ItBooks.hasNext()){
 				Element Books = (Element)ItTT.next();
-				String BookingId = ((org.jdom2.Element) Books).getChild("BookingId").getText();
+				Integer BookingId = ((org.jdom2.Element) Books).getChild("BookingId").getText();
 				String Login = ((org.jdom2.Element) Books).getChild("Login").getText();
 				String DateBegin = ((org.jdom2.Element) Books).getChild("DateBegin").getText();
 				String DateEnd = ((org.jdom2.Element) Books).getChild("DateEnd").getText();
 				String RoomId = ((org.jdom2.Element) Books).getChild("RoomId").getText();
-				if (!(TimeTableMap.containsKey(Books))){
-					
+				if (!(BookingMap.containsKey(BookingId))){
+					Booking Book = new Booking (BookingId, Login, DateBegin, DateEnd, RoomId);
+					BookingMap.put(BookingId,Book);
 				}
 			}
 						
-			if (!(TimeTableMap.containsKey(TT))){
-				
+			if (!(TimeTableMap.containsKey(GroupId))){
+				TimeTable TTI = new TimeTable (GroupId);
+				TimeTableMap.put(GroupId,TTI);
 			}
 					}
 

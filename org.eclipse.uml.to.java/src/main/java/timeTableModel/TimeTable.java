@@ -24,8 +24,9 @@ public class TimeTable {
 
 	/**
 	 * The constructor.
+	 * @param groupId2 
 	 */
-	public TimeTable() {
+	public TimeTable(Integer groupId2) {
 		// Start of user code constructor for TimeTable)
 		super();
 		// End of user code

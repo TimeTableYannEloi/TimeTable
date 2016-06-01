@@ -18,7 +18,7 @@ public class Room {
 	/**
 	 * Description of the property capacity.
 	 */
-	public int capacity;
+	public String capacity;
 
 	/**
 	 * Description of the property bookings.
@@ -28,7 +28,9 @@ public class Room {
 	/**
 	 * Description of the property roomId.
 	 */
-	public int roomId;
+	public String roomId;
+
+
 
 	// Start of user code (user defined attributes for Room)
 
@@ -37,9 +39,12 @@ public class Room {
 	/**
 	 * The constructor.
 	 */
-	public Room() {
+	public Room(Integer roomId2, String Rcapacity) {
 		// Start of user code constructor for Room)
 		super();
+		roomId=roomId2;
+		capacity=Rcapacity;
+		
 		// End of user code
 	}
 

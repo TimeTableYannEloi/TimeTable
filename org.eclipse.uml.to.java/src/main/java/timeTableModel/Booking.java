@@ -34,12 +34,18 @@ public class Booking {
 
 	/**
 	 * The constructor.
+	 * @param roomId 
+	 * @param dateEnd2 
+	 * @param dateBegin2 
+	 * @param login 
+	 * @param bookingId 
 	 */
-	public Booking() {
+	public Booking(Integer bookingId, String login, String dateBegin2, String dateEnd2, String roomId) {
 		// Start of user code constructor for Booking)
 		super();
 		// End of user code
 	}
+
 
 	/**
 	 * Description of the method setTeacherLogin.
