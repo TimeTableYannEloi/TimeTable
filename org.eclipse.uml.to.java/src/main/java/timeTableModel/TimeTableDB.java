@@ -130,12 +130,12 @@ public class TimeTableDB {
 		
 		while(ItTT.hasNext()){
 			Element TT = (Element)ItTT.next();
-			Integer GroupId = ((org.jdom2.Element) TT).getChild("GroupId").getText();
+			String GroupId = ((org.jdom2.Element) TT).getChild("GroupId").getText();
 			List<org.jdom2.Element> BooksElts = ((org.jdom2.Element) TT).getChildren("Books");
 			Iterator<org.jdom2.Element> ItBooks = BooksElts.iterator();
 			while(ItBooks.hasNext()){
 				Element Books = (Element)ItTT.next();
-				Integer BookingId = ((org.jdom2.Element) Books).getChild("BookingId").getText();
+				String BookingId = ((org.jdom2.Element) Books).getChild("BookingId").getText();
 				String Login = ((org.jdom2.Element) Books).getChild("Login").getText();
 				String DateBegin = ((org.jdom2.Element) Books).getChild("DateBegin").getText();
 				String DateEnd = ((org.jdom2.Element) Books).getChild("DateEnd").getText();
