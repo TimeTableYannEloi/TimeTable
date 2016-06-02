@@ -21,6 +21,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -94,7 +96,7 @@ public class TimeTableDB {
 	public void showDB() {
 		try{
 			XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
-			sortie.output(file, System.out));}
+			sortie.output(file, System.out);}
 		catch (java.io.IOException e){}
 	}
 	
@@ -107,8 +109,9 @@ public class TimeTableDB {
 
 	/**
 	 * Description of the method loadDB.
+	 * @throws ParseException 
 	 */
-	public void loadDB() {
+	public void loadDB() throws ParseException {
 		SAXBuilder sxb = new SAXBuilder();
 		try{
 			file = sxb.build(new File("timeTableDB.xml"));}
@@ -134,10 +137,18 @@ public class TimeTableDB {
 			Iterator<org.jdom2.Element> ItBooks = BooksElts.iterator();
 			while(ItBooks.hasNext()){
 				Element Books = (Element)ItTT.next();
+				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy hh:mi:ss");
 				Integer BookingId = Integer.parseInt(((org.jdom2.Element) Books).getChild("BookingId").getText());
 				Integer Login = Integer.parseInt(((org.jdom2.Element) Books).getChild("Login").getText());
-				Date DateBegin = ((org.jdom2.Element) Books).getChild("DateBegin").getText();
-				Date DateEnd = ((org.jdom2.Element) Books).getChild("DateEnd").getText();
+				
+				Date DateEnd = null, DateBegin = null;
+				try {
+					DateBegin = sdf.parse(((org.jdom2.Element) Books).getChild("DateBegin").getText());
+					DateEnd = sdf.parse(((org.jdom2.Element) Books).getChild("DateEnd").getText());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				Integer RoomId = Integer.parseInt(((org.jdom2.Element) Books).getChild("RoomId").getText());
 				if (!(BookingMap.containsKey(BookingId))){
 					Booking Book = new Booking (BookingId, Login, DateBegin, DateEnd, RoomId);
@@ -214,12 +225,16 @@ public class TimeTableDB {
 		Room NRoom = new Room (roomId,capacity);
 		if (!(RoomMap.containsKey(roomId))){
 			RoomMap.put(roomId,NRoom);
-			loadDB();
+			try {
+				loadDB();
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 		}
 		
 	}
-	
 	public void addBooking() {
 		// Start of user code for method addBooking
 		// End of user code
