@@ -76,7 +76,7 @@ public class TimeTableDB {
 
 	/**
 	 * 
-	 * Le fichier contenant la base de données.
+	 *
 	 * 
 	 */
 	protected org.jdom2.Document file;
@@ -93,7 +93,7 @@ public class TimeTableDB {
 	public void showDB() {
 		try{
 			XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
-			sortie.output(file, ));}
+			sortie.output(file, System.out));}
 		catch (java.io.IOException e){}
 	}
 	
@@ -111,7 +111,7 @@ public class TimeTableDB {
 		SAXBuilder sxb = new SAXBuilder();
 		try{
 			file = sxb.build(new File("timeTableDB.xml"));}
-			catch(Exception e){}
+		catch(Exception e){}
 		org.jdom2.Element TTDBElt = file.getRootElement();
 		List<org.jdom2.Element> RoomsElts = TTDBElt.getChildren("Rooms");
 		List<org.jdom2.Element> TTElts = TTDBElt.getChildren("TimeTables");
@@ -123,11 +123,9 @@ public class TimeTableDB {
 			String capacity = ((org.jdom2.Element) Room).getChild("Capacity").getText();
 			if (!(RoomMap.containsKey(RoomId))){
 				Room NRoom = new Room (RoomId, capacity);
-				RoomMap.put(RoomId,NRoom);
-				
+				RoomMap.put(RoomId,NRoom);	
 			}
 					}
-		
 		while(ItTT.hasNext()){
 			Element TT = (Element)ItTT.next();
 			String GroupId = ((org.jdom2.Element) TT).getChild("GroupId").getText();
@@ -135,7 +133,7 @@ public class TimeTableDB {
 			Iterator<org.jdom2.Element> ItBooks = BooksElts.iterator();
 			while(ItBooks.hasNext()){
 				Element Books = (Element)ItTT.next();
-				String BookingId = ((org.jdom2.Element) Books).getChild("BookingId").getText();
+				Integer BookingId = ((org.jdom2.Element) Books).getChild("BookingId").getText();
 				String Login = ((org.jdom2.Element) Books).getChild("Login").getText();
 				String DateBegin = ((org.jdom2.Element) Books).getChild("DateBegin").getText();
 				String DateEnd = ((org.jdom2.Element) Books).getChild("DateEnd").getText();
@@ -186,7 +184,7 @@ public class TimeTableDB {
 	 * Returns file.
 	 * @return file 
 	 */
-	public String getFile() {
+	public org.jdom2.Document getFile() {
 		return file;
 	}
 
@@ -194,7 +192,7 @@ public class TimeTableDB {
 	 * Sets a value to attribute file. 
 	 * @param newFile 
 	 */
-	public void setFile(String file) {
+	public void setFile(org.jdom2.Document file) {
 		this.file = file;
 	}
 
@@ -206,4 +204,31 @@ public class TimeTableDB {
 		return this.rooms;
 	}
 
+	public void removeRoom() {
+		// Start of user code for method removeRoom
+		// End of user code
+	}
+	
+	public void addRoom(int roomId, int capacity) {
+		Room NRoom = new Room (roomId,capacity);
+		if (!(RoomMap.containsKey(roomId))){
+			RoomMap.put(roomId,NRoom);
+			
+		}
+		
+	}
+	
+	public void addBooking() {
+		// Start of user code for method addBooking
+		// End of user code
+	}
+
+	/**
+	 * Description of the method removeBook.
+	 */
+	public void removeBook() {
+		// Start of user code for method removeBook
+		// End of user code
+	}
 }
+

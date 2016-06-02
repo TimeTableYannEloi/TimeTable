@@ -40,7 +40,7 @@ public class Booking {
 	 * @param login 
 	 * @param bookingId 
 	 */
-	public Booking(Integer bookingId, String login, String dateBegin2, String dateEnd2, String roomId) {
+	public Booking(String bookingId, String login, String dateBegin2, String dateEnd2, String roomId) {
 		// Start of user code constructor for Booking)
 		super();
 		// End of user code
@@ -58,18 +58,7 @@ public class Booking {
 	/**
 	 * Description of the method addBooking.
 	 */
-	public void addBooking() {
-		// Start of user code for method addBooking
-		// End of user code
-	}
-
-	/**
-	 * Description of the method removeBook.
-	 */
-	public void removeBook() {
-		// Start of user code for method removeBook
-		// End of user code
-	}
+	
 
 	/**
 	 * Description of the method booksIdToString.

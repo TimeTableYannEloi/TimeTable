@@ -28,7 +28,7 @@ public class Room {
 	/**
 	 * Description of the property roomId.
 	 */
-	public String roomId;
+	public int roomId;
 
 
 
@@ -39,11 +39,11 @@ public class Room {
 	/**
 	 * The constructor.
 	 */
-	public Room(Integer roomId2, String Rcapacity) {
+	public Room(int roomId, int capacity2) {
 		// Start of user code constructor for Room)
 		super();
-		roomId=roomId2;
-		capacity=Rcapacity;
+		roomId=roomId;
+		capacity=capacity2;
 		
 		// End of user code
 	}
@@ -64,21 +64,7 @@ public class Room {
 		// End of user code
 	}
 
-	/**
-	 * Description of the method addRoom.
-	 */
-	public void addRoom() {
-		// Start of user code for method addRoom
-		// End of user code
-	}
 
-	/**
-	 * Description of the method removeRoom.
-	 */
-	public void removeRoom() {
-		// Start of user code for method removeRoom
-		// End of user code
-	}
 
 	// Start of user code (user defined methods for Room)
 
