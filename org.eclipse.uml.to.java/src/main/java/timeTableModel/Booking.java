@@ -3,6 +3,8 @@
  *******************************************************************************/
 package timeTableModel;
 
+import java.util.Date;
+
 // Start of user code (user defined imports)
 
 // End of user code
@@ -35,12 +37,12 @@ public class Booking {
 	/**
 	 * The constructor.
 	 * @param roomId 
-	 * @param dateEnd2 
-	 * @param dateBegin2 
+	 * @param dateEnd 
+	 * @param dateBegin 
 	 * @param login 
 	 * @param bookingId 
 	 */
-	public Booking(String bookingId, String login, String dateBegin2, String dateEnd2, String roomId) {
+	public Booking(Integer bookingId, Integer login, Date dateBegin, Date dateEnd, Integer roomId) {
 		// Start of user code constructor for Booking)
 		super();
 		// End of user code

@@ -26,6 +26,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -119,8 +120,8 @@ public class TimeTableDB {
 		Iterator<org.jdom2.Element> ItTT = TTElts.iterator();
 		while(ItRooms.hasNext()){
 			Element Room = (Element)ItRooms.next();
-			Integer RoomId = ((org.jdom2.Element) Room).getChild("RoomId").getText();
-			String capacity = ((org.jdom2.Element) Room).getChild("Capacity").getText();
+			Integer RoomId = Integer.parseInt(((org.jdom2.Element) Room).getChild("RoomId").getText());
+			Integer capacity = Integer.parseInt(((org.jdom2.Element) Room).getChild("Capacity").getText());
 			if (!(RoomMap.containsKey(RoomId))){
 				Room NRoom = new Room (RoomId, capacity);
 				RoomMap.put(RoomId,NRoom);	
@@ -128,16 +129,16 @@ public class TimeTableDB {
 					}
 		while(ItTT.hasNext()){
 			Element TT = (Element)ItTT.next();
-			String GroupId = ((org.jdom2.Element) TT).getChild("GroupId").getText();
+			Integer GroupId = Integer.parseInt(((org.jdom2.Element) TT).getChild("GroupId").getText());
 			List<org.jdom2.Element> BooksElts = ((org.jdom2.Element) TT).getChildren("Books");
 			Iterator<org.jdom2.Element> ItBooks = BooksElts.iterator();
 			while(ItBooks.hasNext()){
 				Element Books = (Element)ItTT.next();
-				Integer BookingId = ((org.jdom2.Element) Books).getChild("BookingId").getText();
-				String Login = ((org.jdom2.Element) Books).getChild("Login").getText();
-				String DateBegin = ((org.jdom2.Element) Books).getChild("DateBegin").getText();
-				String DateEnd = ((org.jdom2.Element) Books).getChild("DateEnd").getText();
-				String RoomId = ((org.jdom2.Element) Books).getChild("RoomId").getText();
+				Integer BookingId = Integer.parseInt(((org.jdom2.Element) Books).getChild("BookingId").getText());
+				Integer Login = Integer.parseInt(((org.jdom2.Element) Books).getChild("Login").getText());
+				Date DateBegin = ((org.jdom2.Element) Books).getChild("DateBegin").getText();
+				Date DateEnd = ((org.jdom2.Element) Books).getChild("DateEnd").getText();
+				Integer RoomId = Integer.parseInt(((org.jdom2.Element) Books).getChild("RoomId").getText());
 				if (!(BookingMap.containsKey(BookingId))){
 					Booking Book = new Booking (BookingId, Login, DateBegin, DateEnd, RoomId);
 					BookingMap.put(BookingId,Book);
@@ -213,6 +214,7 @@ public class TimeTableDB {
 		Room NRoom = new Room (roomId,capacity);
 		if (!(RoomMap.containsKey(roomId))){
 			RoomMap.put(roomId,NRoom);
+			loadDB();
 			
 		}
 		
