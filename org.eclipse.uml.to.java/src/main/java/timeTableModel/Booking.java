@@ -12,187 +12,158 @@ import java.util.Date;
 /**
  * Description of Booking.
  * 
- * @author aguler
+ * @author Yann
  * @param <EDate>
  */
 public class Booking {
 	/**
-	 * Description of the property id_reservation.
+	 * Description of the property bookId.
 	 */
-	private int id_reservation;
+	private int bookId;
 
 	/**
-	 * Description of the property login_teacher.
+	 * Description of the property login.
 	 */
-	private String login_teacher;
+	private String login;
 
 	/**
-	 * Description of the property start_date.
+	 * Description of the property dateBegin.
 	 */
-	private Date start_date;
+	private Date dateBegin;
 
 	/**
-	 * Description of the property end_date.
+	 * Description of the property dateEnd.
 	 */
-	private Date end_date;
+	private Date dateEnd;
 
 	/**
-	 * Description of the property id_room.
+	 * Description of the property roomId.
 	 */
-	private int id_room;
+	private int roomId;
+	
+	private int i;
 
 	// Start of user code (user defined attributes for Booking)
 
-	// End of user code
 
 	/**
 	 * The constructor.
 	 */
-	public Booking(int id_of_reservation, String the_login_teacher,Date new_start_date,Date new_end_date, int the_room_id) {
-		this.id_reservation=id_of_reservation;
-		this.login_teacher=the_login_teacher;
-		this.start_date=new_start_date;
-		this.end_date=new_end_date;
-		this.id_room=the_room_id;
+	public Booking(int bookId, String login,Date dateBegin,Date dateEnd, int roomId) {
+		this.bookId=bookId;
+		this.login=login;
+		this.dateBegin=dateBegin;
+		this.dateEnd=dateEnd;
+		this.roomId=roomId;
 	}
 
+	
+	/**
+	 * Sets a value to attribute login. 
+	 * @param loginr 
+	 */
+	public void setlogin(String login) {
+		this.login = login;
+	}
+	
+	
 	/**
 	 * Description of the method getTeacherId.
 	 */
-	public String getTeacherId() {
-		return this.login_teacher;
+	public String getlogin() {
+		return this.login;
 	}
+
+	
 
 	/**
-	 * Description of the method getStartDate.
+	 * Sets a value to attribute dateBegin. 
+	 * @param datebegin 
 	 */
-	public Date getStartDate() {
-		return this.start_date;
+	public void setdateBegin(Date dateBegin) {
+		this.dateBegin = dateBegin;
 	}
 
+	
+	
 	/**
-	 * Description of the method getEndDate.
+	 * Description of the method getdateBegin.
 	 */
-	public Date getEndDate() {
-		return this.end_date;
+	public Date getdateBegin() {
+		return this.dateBegin;
 	}
 
+	
+	/**
+	 * Description of the method setdateEnd.
+	 */
+	public void setdateEnd(Date dateEnd) {
+		this.dateEnd = dateEnd;
+	}
+
+	
+	/**
+	 * Description of the method getdateEnd.
+	 */
+	public Date getdateEnd() {
+		return this.dateEnd;
+	}
+
+	
+	/**
+	 * Description of the method setRoomId.
+	 */
+	public void setRoomId (int roomId) {
+		this.roomId = roomId;
+	}
+	
+	
 	/**
 	 * Description of the method getRoomId.
 	 */
 	public int getRoomId() {
-		return this.id_room;
+		return this.roomId;
 	}
+
+	
+	
+	/**
+	 * Sets a value to attribute login. 
+	 * @param bookId 
+	 */
+	public void setbookId(int bookId) {
+		this.bookId = bookId;
+	}
+	
+	
+	/**
+	 * Returns login.
+	 * @return login 
+	 */
+	public int getbookId() {
+		i = Integer.parseInt(login); 
+		return this.i;
+		
+	}
+
+	
+	/**
+	 * Sets a value to attribute roomId. 
+	 * @param roomId 
+	 */
+	public void setroomId(int roomId) {
+		this.roomId = roomId;
+	}
+	
 
 	/**
-	 * Description of the method setTeacherId.
+	 * Returns roomId.
+	 * @return roomId 
 	 */
-	public void setTeacherId(String idTeacher) {
-		this.login_teacher = idTeacher;
+	public int getroomId() {
+		return this.roomId;
 	}
 
-	/**
-	 * Description of the method setStartDate.
-	 */
-	public void setStartDate(Date Date_Start) {
-		this.start_date = Date_Start;
-	}
-
-	/**
-	 * Description of the method setEndDate.
-	 */
-	public void setEndDate(Date Date_End) {
-		this.end_date = Date_End;
-	}
-
-	/**
-	 * Description of the method setRoomId.
-	 */
-	public void setRoomId (int IDRoom) {
-		this.id_room = IDRoom;
-	}
-
-	// Start of user code (user defined methods for Booking)
-
-	// End of user code
-	/**
-	 * Returns id_reservation.
-	 * @return id_reservation 
-	 */
-	public int getId_reservation() {
-		return this.id_reservation;
-	}
-
-	/**
-	 * Sets a value to attribute id_reservation. 
-	 * @param newId_reservation 
-	 */
-	public void setId_reservation(int newId_reservation) {
-		this.id_reservation = newId_reservation;
-	}
-
-	/**
-	 * Returns login_teacher.
-	 * @return login_teacher 
-	 */
-	public String getLogin_teacher() {
-		return this.login_teacher;
-	}
-
-	/**
-	 * Sets a value to attribute login_teacher. 
-	 * @param newLogin_teacher 
-	 */
-	public void setLogin_teacher(String newLogin_teacher) {
-		this.login_teacher = newLogin_teacher;
-	}
-
-	/**
-	 * Returns start_date.
-	 * @return start_date 
-	 */
-	public Date getStart_date() {
-		return this.start_date;
-	}
-
-	/**
-	 * Sets a value to attribute start_date. 
-	 * @param newStart_date 
-	 */
-	public void setStart_date(Date newStart_date) {
-		this.start_date = newStart_date;
-	}
-
-	/**
-	 * Returns end_date.
-	 * @return end_date 
-	 */
-	public Date getEnd_date() {
-		return this.end_date;
-	}
-
-	/**
-	 * Sets a value to attribute end_date. 
-	 * @param newEnd_date 
-	 */
-	public void setEnd_date(Date newEnd_date) {
-		this.end_date = newEnd_date;
-	}
-
-	/**
-	 * Returns id_room.
-	 * @return id_room 
-	 */
-	public int getId_room() {
-		return this.id_room;
-	}
-
-	/**
-	 * Sets a value to attribute id_room. 
-	 * @param newId_room 
-	 */
-	public void setId_room(int newId_room) {
-		this.id_room = newId_room;
-	}
+// End of user code
 
 }
