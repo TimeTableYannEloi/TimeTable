@@ -16,7 +16,7 @@ public class TimeTable {
 	/**
 	 * Description of the property groupId.
 	 */
-	private String groupId;
+	private String timeTableId;
 	
 	// Start of user code (user defined attributes for TimeTable)
 	
@@ -40,15 +40,15 @@ public class TimeTable {
 	 * @return groupId 
 	 */
 	public Object getGroupId() {
-		return this.groupId;
+		return this.timeTableId;
 	}
 
 	/**
 	 * Sets a value to attribute groupId. 
 	 * @param newGroupId 
 	 */
-	public void setGroupId(String newGroupId) {
-		this.groupId = newGroupId;
+	public void settimeTableId(String newtimeTableId) {
+		this.timeTableId = newtimeTableId;
 	}
 
 }
