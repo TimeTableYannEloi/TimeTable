@@ -26,6 +26,7 @@ import java.text.SimpleDateFormat;
 
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import java.util.Date;
@@ -49,44 +50,18 @@ import org.jdom2.output.XMLOutputter;
 
 
 public class TimeTableDB {
-	protected static HashMap <Integer,Room> RoomMap = new HashMap<Integer, Room>();
-	protected static HashMap <Integer,TimeTable> TimeTableMap = new HashMap<Integer, TimeTable>();
-	protected static HashMap <Integer,Booking> BookingMap = new HashMap<Integer, Booking>();
-	/**
-	 * Description of the property timeTables.
-	 */
-	
-	
-	
-	public HashSet<TimeTable> timeTables = new HashSet<TimeTable>();
-
-	/**
-	 * Description of the property teacherTTs.
-	 */
-	public HashSet<TeacherTT> teacherTTs = new HashSet<TeacherTT>();
-
-	/**
-	 * Description of the property file.
-	 */
-	/**
-	 * Description of the property rooms.
-	 */
-	public HashSet<Room> rooms = new HashSet<Room>();
-
-	// Start of user code (user defined attributes for TimeTableDB)
-
-	// End of user code
-
-	/**
-	 * 
-	 *
-	 * 
-	 */
 	protected static org.jdom2.Document file;
+	protected String fileS;
+	public HashSet<TimeTable> TTSet;
+	public HashSet<TeacherTT> TTSSet;
+	public HashSet<Room> RoomsSet;
 
 	public TimeTableDB(String file) {
 		// Start of user code constructor for TimeTableDB)
-		super();
+		this.TTSet = new HashSet<TimeTable>();
+		this.TTSSet = new HashSet<TeacherTT>();
+		this.RoomsSet = new HashSet<Room>();
+
 		// End of user code
 	}
 
@@ -95,6 +70,7 @@ public class TimeTableDB {
 	 */
 	public static void showDB() {
 		try{
+			
 			XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
 			sortie.output(file, System.out);}
 		catch (java.io.IOException e){}
@@ -102,68 +78,70 @@ public class TimeTableDB {
 	
 	public void saveDB() {
 		try{
-			XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
+						XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
 			sortie.output(file, new FileOutputStream("timeTableDB.xml"));}
 		catch (java.io.IOException e){}
 	}
-	/**
-	 * Description of the method loadDB.
-	 * @throws ParseException 
-	 */
-	public static void loadDB() throws ParseException {
+	
+	
+	
+	
+	
+	
+	public String getfile() {
+		return fileS;
+	}
+	
+	public void loadDB(){
 		SAXBuilder sxb = new SAXBuilder();
-		try{
-			file = sxb.build(new File("timeTableDB.xml"));}
+		fileS = this.getFile();
+		try {
+			file = sxb.build(new File(fileS));}
 		catch(Exception e){}
 		org.jdom2.Element TTDBElt = file.getRootElement();
 		org.jdom2.Element RoomsElt = TTDBElt.getChild("Rooms");
 		org.jdom2.Element TTsElt = TTDBElt.getChild("TimeTables");
 		List<org.jdom2.Element> RoomElt = (RoomsElt).getChildren("Room");
-		List<org.jdom2.Element> TTElt = ((org.jdom2.Element) TTsElt).getChildren("TimeTable");
+		List<org.jdom2.Element> TTElt = (TTsElt).getChildren("TimeTable");
 		Iterator<org.jdom2.Element> ItRooms = RoomElt.iterator();
 		Iterator<org.jdom2.Element> ItTT = TTElt.iterator();
 		while(ItRooms.hasNext()){
 			org.jdom2.Element Room = (org.jdom2.Element)ItRooms.next();
 			Integer RoomId = Integer.parseInt(((org.jdom2.Element) Room).getChild("RoomId").getText());
 			Integer capacity = Integer.parseInt(((org.jdom2.Element) Room).getChild("Capacity").getText());
-			if (!(RoomMap.containsKey(RoomId))){
-				Room NRoom = new Room (RoomId, capacity);
-				RoomMap.put(RoomId,NRoom);	
+			Room NRoom = new Room (RoomId, capacity);
+			this.RoomsSet.put(NRoom);
 			}
-					}
-		while(ItTT.hasNext()){
-			org.jdom2.Element TT = (org.jdom2.Element)ItTT.next();
-			Integer GroupId = Integer.parseInt(((org.jdom2.Element) TT).getChild("GroupId").getText());
-			List<org.jdom2.Element> BooksElts = ((org.jdom2.Element) TT).getChildren("Books");
-			Iterator<org.jdom2.Element> ItBooks = BooksElts.iterator();
-			while(ItBooks.hasNext()){
-				org.jdom2.Element Books = (org.jdom2.Element)ItTT.next();
-				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy hh:mi:ss");
-				Integer BookingId = Integer.parseInt(((org.jdom2.Element) Books).getChild("BookingId").getText());
-				Integer Login = Integer.parseInt(((org.jdom2.Element) Books).getChild("Login").getText());
-				
-				Date DateEnd = null, DateBegin = null;
-				try {
-					DateBegin = sdf.parse(((org.jdom2.Element) Books).getChild("DateBegin").getText());
-					DateEnd = sdf.parse(((org.jdom2.Element) Books).getChild("DateEnd").getText());
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				Integer RoomId = Integer.parseInt(((org.jdom2.Element) Books).getChild("RoomId").getText());
-				if (!(BookingMap.containsKey(BookingId))){
-					Booking Book = new Booking (BookingId, Login, DateBegin, DateEnd, RoomId);
-					BookingMap.put(BookingId,Book);
-				}
-			}
-						
-			if (!(TimeTableMap.containsKey(GroupId))){
+			while(ItTT.hasNext()){
+				org.jdom2.Element TT = (org.jdom2.Element)ItTT.next();
+				Integer GroupId = Integer.parseInt(((org.jdom2.Element) TT).getChild("GroupId").getText());
+				List<org.jdom2.Element> BooksElts = ((org.jdom2.Element) TT).getChildren("Books");
+				Iterator<org.jdom2.Element> ItBooks = BooksElts.iterator();
 				TimeTable TTI = new TimeTable (GroupId);
-				TimeTableMap.put(GroupId,TTI);
-			}
+				while(ItBooks.hasNext()){
+					org.jdom2.Element Books = (org.jdom2.Element)ItTT.next();
+					SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy hh:mi:ss");
+					Integer BookingId = Integer.parseInt(((org.jdom2.Element) Books).getChild("BookingId").getText());
+					String Login = ((org.jdom2.Element) Books).getChild("Login").getText();
+					
+					Date DateEnd = null, DateBegin = null;
+					try {
+						DateBegin = sdf.parse(((org.jdom2.Element) Books).getChild("DateBegin").getText());
+						DateEnd = sdf.parse(((org.jdom2.Element) Books).getChild("DateEnd").getText());
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
-
-	}
+					Integer RoomId = Integer.parseInt(((org.jdom2.Element) Books).getChild("RoomId").getText());
+					Booking Book = new Booking (BookingId, Login, DateBegin, DateEnd, RoomId);
+					TTI.addBooking(Book);
+				}
+				this.TTSet.put(TTI);
+			}
+				
+			}	
+	
+	
 	
 
 	/**
@@ -182,86 +160,22 @@ public class TimeTableDB {
 	 * @return timeTables 
 	 */
 	public HashSet<TimeTable> getTimeTables() {
-		return this.timeTables;
+		return this.TTSet;
 	}
 
-	/**
-	 * Returns teacherTTs.
-	 * @return teacherTTs 
-	 */
 	public HashSet<TeacherTT> getTeacherTTs() {
-		return this.teacherTTs;
+		return this.TTSSet;
 	}
 
-	/**
-	 * Returns file.
-	 * @return file 
-	 */
-	public org.jdom2.Document getFile() {
-		return file;
+	public String getFile() {
+		return fileS;
 	}
 
-	/**
-	 * Sets a value to attribute file. 
-	 * @param newFile 
-	 */
-	public void setFile(org.jdom2.Document file) {
-		this.file = file;
+	public void setFile(String fileS) {
+		this.fileS = fileS;
 	}
 
-	/**
-	 * Returns rooms.
-	 * @return rooms 
-	 */
 	public HashSet<Room> getRooms() {
-		return this.rooms;
+		return this.RoomsSet;
 	}
-
-	public void removeRoom() {
-		// Start of user code for method removeRoom
-		// End of user code
 	}
-	
-	public void addRoom(int roomId, int capacity) {
-		try {
-			loadDB();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		if (!(RoomMap.containsKey(roomId))){
-			
-			org.jdom2.Element TTDBElt = file.getRootElement();
-			List<org.jdom2.Element> RoomsElts = TTDBElt.getChildren("Rooms");
-			Iterator<org.jdom2.Element> ItRooms = RoomsElts.iterator();
-			while(ItRooms.hasNext()){
-				Element Room = (Element)ItRooms.next();
-				Integer RoomId = Integer.parseInt(((org.jdom2.Element) Room).getChild("RoomId").getText());
-				Integer capacityx = Integer.parseInt(((org.jdom2.Element) Room).getChild("Capacity").getText());
-				if (!(RoomMap.containsKey(RoomId))){
-					Room NRoom = new Room (RoomId, capacity);
-					RoomMap.put(RoomId,NRoom);	
-				}
-						}
-			
-			
-			
-			saveDB();
-			
-		}
-		
-	}
-	public void addBooking() {
-		// Start of user code for method addBooking
-		// End of user code
-	}
-
-	/**
-	 * Description of the method removeBook.
-	 */
-	public void removeBook() {
-		// Start of user code for method removeBook
-		// End of user code
-	}
-}
-
