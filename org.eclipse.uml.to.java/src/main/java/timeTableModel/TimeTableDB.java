@@ -4,38 +4,14 @@
 package timeTableModel;
 import java.io.File;
 import java.io.FileOutputStream;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-
-import org.w3c.dom.Comment;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
-import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-
 import java.util.Date;
-import java.util.HashMap;
+
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
-import org.jdom2.*;
+
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
@@ -52,15 +28,15 @@ import org.jdom2.output.XMLOutputter;
 public class TimeTableDB {
 	protected static org.jdom2.Document file;
 	protected String fileS;
-	public HashSet<TimeTable> TTSet;
-	public HashSet<TeacherTT> TTSSet;
-	public HashSet<Room> RoomsSet;
+	public static HashSet<TimeTable> TTSet;
+	public static HashSet<TeacherTT> TTTSet;
+	public static HashSet<Room> RoomsSet;
 
 	public TimeTableDB(String file) {
 		// Start of user code constructor for TimeTableDB)
-		this.TTSet = new HashSet<TimeTable>();
-		this.TTSSet = new HashSet<TeacherTT>();
-		this.RoomsSet = new HashSet<Room>();
+		TimeTableDB.TTSet = new HashSet<TimeTable>();
+		TimeTableDB.TTTSet = new HashSet<TeacherTT>();
+		TimeTableDB.RoomsSet = new HashSet<Room>();
 
 		// End of user code
 	}
@@ -77,6 +53,7 @@ public class TimeTableDB {
 	}
 	
 	public void saveDB() {
+		
 		try{
 						XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
 			sortie.output(file, new FileOutputStream("timeTableDB.xml"));}
@@ -110,7 +87,7 @@ public class TimeTableDB {
 			Integer RoomId = Integer.parseInt(((org.jdom2.Element) Room).getChild("RoomId").getText());
 			Integer capacity = Integer.parseInt(((org.jdom2.Element) Room).getChild("Capacity").getText());
 			Room NRoom = new Room (RoomId, capacity);
-			this.RoomsSet.put(NRoom);
+			TimeTableDB.RoomsSet.add(NRoom);
 			}
 			while(ItTT.hasNext()){
 				org.jdom2.Element TT = (org.jdom2.Element)ItTT.next();
@@ -136,7 +113,7 @@ public class TimeTableDB {
 					Booking Book = new Booking (BookingId, Login, DateBegin, DateEnd, RoomId);
 					TTI.addBooking(Book);
 				}
-				this.TTSet.put(TTI);
+				TimeTableDB.TTSet.add(TTI);
 			}
 				
 			}	
@@ -160,11 +137,11 @@ public class TimeTableDB {
 	 * @return timeTables 
 	 */
 	public HashSet<TimeTable> getTimeTables() {
-		return this.TTSet;
+		return TimeTableDB.TTSet;
 	}
 
 	public HashSet<TeacherTT> getTeacherTTs() {
-		return this.TTSSet;
+		return TimeTableDB.TTTSet;
 	}
 
 	public String getFile() {
@@ -176,6 +153,6 @@ public class TimeTableDB {
 	}
 
 	public HashSet<Room> getRooms() {
-		return this.RoomsSet;
+		return TimeTableDB.RoomsSet;
 	}
 	}
