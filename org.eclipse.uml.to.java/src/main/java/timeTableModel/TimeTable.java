@@ -56,5 +56,21 @@ public class TimeTable {
 	public void settimeTableId(String newtimeTableId) {
 		this.timeTableId = newtimeTableId;
 	}
-
+	/**
+	 * Add a new booking object to the timetable 
+	 * @param Booking book
+	 */
+	public void addBooking(Booking book){
+		this.bookings.add(book);
+	}
+	
+	
+	/**
+	 * Remove a new booking object to the timetable 
+	 * @param Booking book
+	 */
+	public void removeBooking(Booking book){
+		this.bookings.remove(book);
+	}
+	
 }
