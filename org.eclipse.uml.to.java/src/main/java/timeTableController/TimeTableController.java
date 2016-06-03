@@ -1,12 +1,12 @@
-/*******************************************************************************
- * 2016, All rights reserved.
+/* 2016, All rights reserved.
  *******************************************************************************/
 package timeTableController;
 import java.util.*;
 import java.util.Map.Entry;
-
 import timeTableModel.Booking;
-
+import timeTableModel.Room;
+import timeTableModel.TimeTable;
+import timeTableModel.TimeTableDB;
 
 // Start of user code (user defined imports)
 
@@ -21,7 +21,7 @@ public class TimeTableController implements ITimeTableController {
 	/**
 	 * Description of the property timeTableDB.
 	 */
-	public TimeTableDB timeTableDB = null;
+	public TimeTableDB timeTableDB;
 
 	// Start of user code (user defined attributes for TimeTableController)
 
@@ -66,17 +66,21 @@ public class TimeTableController implements ITimeTableController {
 	
 	public String[] roomsIdToString() {
 		// Start of user code for method roomsIdToString
-		HashMap <Integer,Room> RoomMap = this.RoomMap;
-		Set<Integer> listKeys=RoomMap.keySet();
-		int size =listKeys.size();
-		String TabRoomsId[] = new String[size];
+		HashSet<Room> RoomsSet = TimeTableDB.RoomsSet;
+		Iterator<Room> it1 = RoomsSet.iterator();
 		int i =0;
-	    for (Entry<Integer, Room> entry : RoomMap.entrySet()){
-			int key=entry.getKey();
-	    	String cle = "" + key;
+		while (it1.hasNext()) {
+			i++;
+		    it1.next();
+		}
+		Iterator<Room> it2 = RoomsSet.iterator();
+		String TabRoomsId[] = new String[i];
+		i =0;
+		while (it2.hasNext()) {
+			String cle = "" + it2.hasNext();
 	    	TabRoomsId[i]=cle;
 	    	i++;
-	    }
+		}
 	    return TabRoomsId;
 		// End of user code
 	}
@@ -87,51 +91,26 @@ public class TimeTableController implements ITimeTableController {
 	 * @return TabTimeTableId
 	 */
 	public String[] roomsToString() {
-		// Start of user code for method roomsToString
-		HashMap <Integer,Room> TimeTableMap = this.TimeTableMap;    //rÈcupÈration du hashmap global
-		Set<Integer> listKeys=TimeTableMap.keySet();				//rÈcupÈration des clÈs du hashmap que l'ont met dans un tableau d'entiers
-		int size =listKeys.size();									//rÈcupÈration de la longueur de la liste de clÈs
-		String TabTimeTableId[] = new String[size];					//initialisation du tableau de string qui sera la sortie
-		int i =0;													//initialisation de l'itÈrateur
-	    for (Entry<Integer, Room> entry : TimeTableMap.entrySet()){	//code du prof
-			int key=entry.getKey();									//rÈcupÈration des int conversion en string remplissage du tableau de sortie
-	    	String cle = "" + key;
-	    	TabTimeTableId[i]=cle;
-	    	i++;
-	    }
+		// Start of user code for method roomsIdToString
+		HashSet<TimeTable> TTSet = TimeTableDB.TTSet;
+		Iterator<TimeTable> it1 = TTSet.iterator();
+		int i =0;
+		while (it1.hasNext()) {
+			i++;
+		    it1.next();
+		}
+		Iterator<TimeTable> it2 = TTSet.iterator();
+		String TabTimeTableId[] = new String[i];
+		i =0;
+		while (it2.hasNext()) {
+			String cle = "" + it2.hasNext();
+			TabTimeTableId[i]=cle;
+		   	i++;
+		}
 	    return TabTimeTableId;
-		// End of user code
+		
 	}
-	
-	/**
-	 * Fonction qui ajoute une r√©servation dans l'emploi du temps TimeTableId et qui la sauvegarde dans la base de donn√©es
-	 * 
-	 * @param timeTableId
-	 * 		L'identifiant d'emploi du temps
-	 * @param bookingId
-	 * 		L'identifiant de r√©servation
-	 * @param login
-	 * 		Le login du professeur faisant la r√©servation
-	 * @param dateBegin
-	 * 		La date de d√©but de r√©servation
-	 * @param dateEnd
-	 * 		La date de fin de r√©servation
-	 * @param roomId
-	 * 		L'identifiant de la salle r√©serv√©e
-	 * @return
-	 * 		Un boolean indiquant si la r√©servation a bien √©t√© faite
-	 */
-	
-	public void addBooking(int bookId, String login,Date dateBegin,Date dateEnd, int roomId) {
-		this.BookingId=BookingId;
-		this.Login=Login;
-		this.DateBegin=DateBegin;
-		this.DateEnd=DateEnd;
-		this.RoomId=RoomId;
-		HashMap <Integer,Room> TimeTableMap = this.TimeTableMap;
-		Booking Book = new Booking (BookingId, Login, DateBegin, DateEnd, RoomId);
-		BookingMap.put(BookingId,Book);
-	}
+
 	
 	/**
 	 * Fonction qui cr√©e une salle et qui la sauvegarde dans la base de donn√©es. 
@@ -143,8 +122,96 @@ public class TimeTableController implements ITimeTableController {
 	 * 		Un boolean indiquant si la salle a bien √©t√© cr√©√©e
 	 */
 	public boolean addRoom(int roomId, int capacity){
-		this.roomId=roomId;
-		this.capacity=capacity;
+		HashSet<Room> RoomsSet = TimeTableDB.RoomsSet;
+		Room newroom = new Room(roomId,capacity);
+		boolean b;
+		if((RoomsSet.contains(newroom))){
+			b=false;
+		}
+		else{
+			b=true;
+			RoomsSet.add(newroom);
+		}
+	
+		return b;
+	}
+
+	@Override
+	public String getTeacherLogin(int timeTableId, int bookId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean removeRoom(int roomId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public int getRoom(int timeTableId, int bookId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean addTimeTable(int timeTableId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean removeTimeTable(int timeTableId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean addBooking(int timeTableId, int bookingId, String login, Date dateBegin, Date dateEnd, int roomId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void getBookingsDate(int timeTableId, Hashtable<Integer, Date> dateBegin, Hashtable<Integer, Date> dateEnd) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean removeBook(int timeTableId, int bookId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public int getBookingsMaxId(int timeTableId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public String[] timeTablesIDToString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String[] booksIdToString(int timeTableId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean saveDB() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean loadDB() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 	
