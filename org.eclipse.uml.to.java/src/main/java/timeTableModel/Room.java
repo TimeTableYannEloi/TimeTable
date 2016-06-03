@@ -42,8 +42,8 @@ public class Room {
 	public Room(int roomId, int capacity) {
 		// Start of user code constructor for Room)
 		super();
-		roomId=this.roomId;
-		capacity=this.capacity;
+		this.roomId=roomId;
+		this.capacity=capacity;
 		
 		// End of user code
 	}
