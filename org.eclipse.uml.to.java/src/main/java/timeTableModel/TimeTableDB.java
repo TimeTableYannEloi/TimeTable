@@ -4,6 +4,7 @@
 package timeTableModel;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -11,7 +12,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
-
+import org.jdom2.Element;
+import org.jdom2.Parent;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
@@ -52,8 +54,59 @@ public class TimeTableDB {
 		catch (java.io.IOException e){}
 	}
 	
-	public void saveDB() {
+	@SuppressWarnings("unchecked")
+	public void saveDB(){
 		
+		Iterator<Room> ITRooms = TimeTableDB.RoomsSet.iterator();
+		Element ITNewRooms = new Element("Rooms");
+		while(ITRooms.hasNext()){
+			Element NewRoom = new Element("Room");
+			Element NewRoomID = new Element("RoomId");
+			NewRoomID.setText(""+((Iterator<Room>) ITNewRooms).next().getRoomId());
+			Element MaxCapacity = new Element("Capacity");
+			MaxCapacity.setText("ITNewRooms.next().getCapacity()");
+			
+			NewRoom.addContent(NewRoomID);
+			NewRoom.addContent(MaxCapacity);
+			ITNewRooms.addContent(NewRoom);
+		}
+		
+		Iterator<TimeTable> ITTT = TimeTableDB.TTSet.iterator();
+		Element ITNewTT = new Element ("Timetables");
+		while(ITTT.hasNext()){
+			Element NewTT = new Element ("Timetable");
+			Element NewGroupID = new Element("GroupId");
+			NewGroupID.setText(""+ITTT.next().getGroupId());
+			Iterator<Booking> ITBooking = ITTT.next().getbookId().iterator();
+			Element ITNewBookings = new Element ("Books");
+				while(ITBooking.hasNext()){
+					Element NewBook = new Element ("Book");
+					Element NewBookID = new Element("BookingId");
+					Element NewLogin = new Element("Login");
+					Element NewDateBegin = new Element("DateBegin");
+					Element NewDateEnd = new Element("DateEnd");
+					Element RoomId = new Element("RoomId");
+					SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/YYYY HH:mm:ss");
+					NewBookID.setText(""+((Iterator<Booking>) ITNewBookings).next().getBookings());
+					NewLogin.setText(((Iterator<Booking>) ITNewBookings).next().getlogin());
+					NewDateBegin.setText(formatter.format(((Iterator<Booking>) ITNewBookings).next().getdateBegin()));
+					NewDateEnd.setText(formatter.format(((Iterator<Booking>) ITNewBookings).next().getdateEnd()));
+					RoomId.setText(""+((Iterator<Booking>) ITNewBookings).next().getroomId());
+					NewBook.addContent(NewBookID);
+					NewBook.addContent(NewLogin);
+					NewBook.addContent(NewDateBegin);
+					NewBook.addContent(NewDateEnd);
+					NewBook.addContent(RoomId);
+					ITNewBookings.addContent(NewBook);
+				}
+			((Parent) TTSet).addContent(ITNewBookings);
+			NewTT.addContent(NewGroupID);
+			ITNewTT.addContent(NewTT);
+		}
+		
+		Element TTDB = new Element("TimetableDB");
+		TTDB.addContent(ITNewRooms);
+		TTDB.addContent(ITNewTT);
 		try{
 						XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
 			sortie.output(file, new FileOutputStream("timeTableDB.xml"));}
