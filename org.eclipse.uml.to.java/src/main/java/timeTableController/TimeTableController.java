@@ -53,10 +53,7 @@ public class TimeTableController implements ITimeTableController {
 	 * @param newTimeTableDB 
 	 */
 	public void setTimeTableDB(TimeTableDB newTimeTableDB) {
-		if (this.timeTableDB != null) {
-			this.timeTableDB.set(null);
-		}
-		this.timeTableDB.set(this);
+		this.timeTableDB=newTimeTableDB;
 	}
 	
 	/**
@@ -125,7 +122,7 @@ public class TimeTableController implements ITimeTableController {
 		HashSet<Room> RoomsSet = TimeTableDB.RoomsSet;
 		Room newroom = new Room(roomId,capacity);
 		boolean b;
-		if((RoomsSet.contains(roomId))){
+		if((RoomsSet.contains(newroom))){
 			b=false;
 		}
 		else{
