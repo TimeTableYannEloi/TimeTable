@@ -2,7 +2,7 @@
  * 2016, All rights reserved.
  *******************************************************************************/
 package timeTableModel;
-
+import java.util.*;
 // Start of user code (user defined imports)
 
 // End of user code
@@ -17,6 +17,8 @@ public class TimeTable {
 	 * Description of the property groupId.
 	 */
 	private String timeTableId;
+	public HashSet<Booking> bookings;
+
 	
 	// Start of user code (user defined attributes for TimeTable)
 	
@@ -27,8 +29,12 @@ public class TimeTable {
 	 * @param groupId2 
 	 */
 	public TimeTable(Integer groupId2) {
-		// Start of user code constructor for TimeTable)
 		super();
+		// Start of user code constructor for TimeTable)
+		String groupId2s;
+		groupId2s = "" + groupId2;
+		timeTableId=groupId2s;
+		this.bookings = new HashSet<Booking>();
 		// End of user code
 	}
 
