@@ -5,6 +5,8 @@ package timeTableController;
 import java.util.*;
 import java.util.Map.Entry;
 
+import timeTableModel.Booking;
+
 
 // Start of user code (user defined imports)
 
@@ -100,4 +102,50 @@ public class TimeTableController implements ITimeTableController {
 	    return TabTimeTableId;
 		// End of user code
 	}
+	
+	/**
+	 * Fonction qui ajoute une réservation dans l'emploi du temps TimeTableId et qui la sauvegarde dans la base de données
+	 * 
+	 * @param timeTableId
+	 * 		L'identifiant d'emploi du temps
+	 * @param bookingId
+	 * 		L'identifiant de réservation
+	 * @param login
+	 * 		Le login du professeur faisant la réservation
+	 * @param dateBegin
+	 * 		La date de début de réservation
+	 * @param dateEnd
+	 * 		La date de fin de réservation
+	 * @param roomId
+	 * 		L'identifiant de la salle réservée
+	 * @return
+	 * 		Un boolean indiquant si la réservation a bien été faite
+	 */
+	
+	public void addBooking(int bookId, String login,Date dateBegin,Date dateEnd, int roomId) {
+		this.BookingId=BookingId;
+		this.Login=Login;
+		this.DateBegin=DateBegin;
+		this.DateEnd=DateEnd;
+		this.RoomId=RoomId;
+		HashMap <Integer,Room> TimeTableMap = this.TimeTableMap;
+		Booking Book = new Booking (BookingId, Login, DateBegin, DateEnd, RoomId);
+		BookingMap.put(BookingId,Book);
+	}
+	
+	/**
+	 * Fonction qui crée une salle et qui la sauvegarde dans la base de données. 
+	 * @param roomId
+	 * 		L'identifiant de la salle
+	 * @param capacity
+	 * 		La capacité de la salle
+	 * @return
+	 * 		Un boolean indiquant si la salle a bien été créée
+	 */
+	public boolean addRoom(int roomId, int capacity){
+		this.roomId=roomId;
+		this.capacity=capacity;
+	}
+	
+	
 }
