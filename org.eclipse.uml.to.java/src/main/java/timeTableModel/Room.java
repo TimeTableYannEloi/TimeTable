@@ -42,29 +42,11 @@ public class Room {
 	public Room(int roomId, int capacity) {
 		// Start of user code constructor for Room)
 		super();
-		this.roomId=roomId;
-		this.capacity=capacity;
+		roomId=this.roomId;
+		capacity=this.capacity;
 		
 		// End of user code
 	}
-
-	/**
-	 * Description of the method roomsIdToString.
-	 */
-	public void roomsIdToString() {
-		// Start of user code for method roomsIdToString
-		// End of user code
-	}
-
-	/**
-	 * Description of the method roomsToString .
-	 */
-	public void roomsToString() {
-		// Start of user code for method roomsToString 
-		// End of user code
-	}
-
-
 
 	// Start of user code (user defined methods for Room)
 
