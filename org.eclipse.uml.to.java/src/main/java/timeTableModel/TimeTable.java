@@ -17,7 +17,7 @@ public class TimeTable {
 	 * Description of the property groupId.
 	 */
 	private String timeTableId;
-	public static HashSet<Booking> bookings;
+	public HashSet<Booking> bookings;
 
 	
 	// Start of user code (user defined attributes for TimeTable)
@@ -72,5 +72,7 @@ public class TimeTable {
 	public void removeBooking(Booking book){
 		this.bookings.remove(book);
 	}
-	
+	public HashSet<Booking> getBookings() {
+		return this.bookings;
+	}
 }

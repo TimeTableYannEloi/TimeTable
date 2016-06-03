@@ -4,7 +4,7 @@
 package timeTableModel;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.text.DateFormat;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -77,7 +77,7 @@ public class TimeTableDB {
 			Element NewTT = new Element ("Timetable");
 			Element NewGroupID = new Element("GroupId");
 			NewGroupID.setText(""+ITTT.next().getGroupId());
-			Iterator<Booking> ITBooking = ITTT.next().getbookId().iterator();
+			Iterator<Booking> ITBooking = ITTT.next().getBookings().iterator();
 			Element ITNewBookings = new Element ("Books");
 				while(ITBooking.hasNext()){
 					Element NewBook = new Element ("Book");
@@ -87,7 +87,7 @@ public class TimeTableDB {
 					Element NewDateEnd = new Element("DateEnd");
 					Element RoomId = new Element("RoomId");
 					SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/YYYY HH:mm:ss");
-					NewBookID.setText(""+((Iterator<Booking>) ITNewBookings).next().getBookings());
+					NewBookID.setText(""+((Iterator<Booking>) ITNewBookings).next().getbookId());
 					NewLogin.setText(((Iterator<Booking>) ITNewBookings).next().getlogin());
 					NewDateBegin.setText(formatter.format(((Iterator<Booking>) ITNewBookings).next().getdateBegin()));
 					NewDateEnd.setText(formatter.format(((Iterator<Booking>) ITNewBookings).next().getdateEnd()));
@@ -159,7 +159,6 @@ public class TimeTableDB {
 						DateBegin = sdf.parse(((org.jdom2.Element) Books).getChild("DateBegin").getText());
 						DateEnd = sdf.parse(((org.jdom2.Element) Books).getChild("DateEnd").getText());
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					Integer RoomId = Integer.parseInt(((org.jdom2.Element) Books).getChild("RoomId").getText());
