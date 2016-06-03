@@ -17,7 +17,7 @@ public class TimeTable {
 	 * Description of the property groupId.
 	 */
 	private String timeTableId;
-	public HashSet<Booking> bookings;
+	public static HashSet<Booking> bookings;
 
 	
 	// Start of user code (user defined attributes for TimeTable)
