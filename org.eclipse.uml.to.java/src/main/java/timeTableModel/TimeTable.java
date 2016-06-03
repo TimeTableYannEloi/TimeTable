@@ -28,7 +28,7 @@ public class TimeTable {
 	 * The constructor.
 	 * @param groupId2 
 	 */
-	public TimeTable(Integer groupId2) {
+	public TimeTable (Integer groupId2) {
 		super();
 		// Start of user code constructor for TimeTable)
 		String groupId2s;
