@@ -49,9 +49,9 @@ import org.jdom2.output.XMLOutputter;
 
 
 public class TimeTableDB {
-	protected HashMap <Integer,Room> RoomMap = new HashMap();
-	protected HashMap <Integer,TimeTable> TimeTableMap = new HashMap();
-	protected HashMap <Integer,Booking> BookingMap = new HashMap();
+	protected static HashMap <Integer,Room> RoomMap = new HashMap<Integer, Room>();
+	protected static HashMap <Integer,TimeTable> TimeTableMap = new HashMap<Integer, TimeTable>();
+	protected static HashMap <Integer,Booking> BookingMap = new HashMap<Integer, Booking>();
 	/**
 	 * Description of the property timeTables.
 	 */
@@ -82,7 +82,7 @@ public class TimeTableDB {
 	 *
 	 * 
 	 */
-	protected org.jdom2.Document file;
+	protected static org.jdom2.Document file;
 
 	public TimeTableDB(String file) {
 		// Start of user code constructor for TimeTableDB)
@@ -93,7 +93,7 @@ public class TimeTableDB {
 	/**
 	 * Description of the method saveDB.
 	 */
-	public void showDB() {
+	public static void showDB() {
 		try{
 			XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
 			sortie.output(file, System.out);}
@@ -106,23 +106,24 @@ public class TimeTableDB {
 			sortie.output(file, new FileOutputStream("timeTableDB.xml"));}
 		catch (java.io.IOException e){}
 	}
-
 	/**
 	 * Description of the method loadDB.
 	 * @throws ParseException 
 	 */
-	public void loadDB() throws ParseException {
+	public static void loadDB() throws ParseException {
 		SAXBuilder sxb = new SAXBuilder();
 		try{
 			file = sxb.build(new File("timeTableDB.xml"));}
 		catch(Exception e){}
 		org.jdom2.Element TTDBElt = file.getRootElement();
-		List<org.jdom2.Element> RoomsElts = TTDBElt.getChildren("Rooms");
-		List<org.jdom2.Element> TTElts = TTDBElt.getChildren("TimeTables");
-		Iterator<org.jdom2.Element> ItRooms = RoomsElts.iterator();
-		Iterator<org.jdom2.Element> ItTT = TTElts.iterator();
+		org.jdom2.Element RoomsElt = TTDBElt.getChild("Rooms");
+		org.jdom2.Element TTsElt = TTDBElt.getChild("TimeTables");
+		List<org.jdom2.Element> RoomElt = (RoomsElt).getChildren("Room");
+		List<org.jdom2.Element> TTElt = ((org.jdom2.Element) TTsElt).getChildren("TimeTable");
+		Iterator<org.jdom2.Element> ItRooms = RoomElt.iterator();
+		Iterator<org.jdom2.Element> ItTT = TTElt.iterator();
 		while(ItRooms.hasNext()){
-			Element Room = (Element)ItRooms.next();
+			org.jdom2.Element Room = (org.jdom2.Element)ItRooms.next();
 			Integer RoomId = Integer.parseInt(((org.jdom2.Element) Room).getChild("RoomId").getText());
 			Integer capacity = Integer.parseInt(((org.jdom2.Element) Room).getChild("Capacity").getText());
 			if (!(RoomMap.containsKey(RoomId))){
@@ -131,12 +132,12 @@ public class TimeTableDB {
 			}
 					}
 		while(ItTT.hasNext()){
-			Element TT = (Element)ItTT.next();
+			org.jdom2.Element TT = (org.jdom2.Element)ItTT.next();
 			Integer GroupId = Integer.parseInt(((org.jdom2.Element) TT).getChild("GroupId").getText());
 			List<org.jdom2.Element> BooksElts = ((org.jdom2.Element) TT).getChildren("Books");
 			Iterator<org.jdom2.Element> ItBooks = BooksElts.iterator();
 			while(ItBooks.hasNext()){
-				Element Books = (Element)ItTT.next();
+				org.jdom2.Element Books = (org.jdom2.Element)ItTT.next();
 				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy hh:mi:ss");
 				Integer BookingId = Integer.parseInt(((org.jdom2.Element) Books).getChild("BookingId").getText());
 				Integer Login = Integer.parseInt(((org.jdom2.Element) Books).getChild("Login").getText());
@@ -222,15 +223,30 @@ public class TimeTableDB {
 	}
 	
 	public void addRoom(int roomId, int capacity) {
-		Room NRoom = new Room (roomId,capacity);
+		try {
+			loadDB();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (!(RoomMap.containsKey(roomId))){
-			RoomMap.put(roomId,NRoom);
-			try {
-				loadDB();
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
+			org.jdom2.Element TTDBElt = file.getRootElement();
+			List<org.jdom2.Element> RoomsElts = TTDBElt.getChildren("Rooms");
+			Iterator<org.jdom2.Element> ItRooms = RoomsElts.iterator();
+			while(ItRooms.hasNext()){
+				Element Room = (Element)ItRooms.next();
+				Integer RoomId = Integer.parseInt(((org.jdom2.Element) Room).getChild("RoomId").getText());
+				Integer capacityx = Integer.parseInt(((org.jdom2.Element) Room).getChild("Capacity").getText());
+				if (!(RoomMap.containsKey(RoomId))){
+					Room NRoom = new Room (RoomId, capacity);
+					RoomMap.put(RoomId,NRoom);	
+				}
+						}
+			
+			
+			
+			saveDB();
 			
 		}
 		

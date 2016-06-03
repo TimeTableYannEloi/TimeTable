@@ -1,9 +1,16 @@
 package timeTableModel;
 
+import java.text.ParseException;
+
 public class Main {
 	public static void main(String[] args){
 		
-		int a=Integer.parseInt("1234")+10;
-		System.out.println(a);
+		try {
+			TimeTableDB.loadDB();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		TimeTableDB.showDB();
 	}
 }

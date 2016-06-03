@@ -24,8 +24,9 @@ public class TimeTableController implements ITimeTableController {
 
 	/**
 	 * The constructor.
+	 * @param tTfile 
 	 */
-	public TimeTableController() {
+	public TimeTableController(String tTfile) {
 		// Start of user code constructor for TimeTableController)
 		super();
 		// End of user code

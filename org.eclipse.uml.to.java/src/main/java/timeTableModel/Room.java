@@ -18,7 +18,7 @@ public class Room {
 	/**
 	 * Description of the property capacity.
 	 */
-	public String capacity;
+	public int capacity;
 
 	/**
 	 * Description of the property bookings.
@@ -39,11 +39,11 @@ public class Room {
 	/**
 	 * The constructor.
 	 */
-	public Room(int roomId, int capacity2) {
+	public Room(int roomId, int capacity) {
 		// Start of user code constructor for Room)
 		super();
-		roomId=roomId;
-		capacity=capacity2;
+		roomId=this.roomId;
+		capacity=this.capacity;
 		
 		// End of user code
 	}
