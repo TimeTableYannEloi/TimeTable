@@ -125,7 +125,7 @@ public class TimeTableController implements ITimeTableController {
 		HashSet<Room> RoomsSet = TimeTableDB.RoomsSet;
 		Room newroom = new Room(roomId,capacity);
 		boolean b;
-		if((RoomsSet.contains(newroom))){
+		if((RoomsSet.contains(roomId))){
 			b=false;
 		}
 		else{
