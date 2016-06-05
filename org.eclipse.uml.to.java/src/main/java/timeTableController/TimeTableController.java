@@ -61,7 +61,6 @@ public class TimeTableController implements ITimeTableController {
 	 * @return TabRoomsId
 	 * 		Le tableau des TabRoomsId en string
 	 */
-	
 	public String[] roomsToString() {
 		// Start of user code for method roomsIdToString
 		HashSet<Room> RoomsSet = TimeTableDB.RoomsSet;		//R�cup�ration du HashSet contenant les Rooms
@@ -77,7 +76,13 @@ public class TimeTableController implements ITimeTableController {
 	    return TabRoomsId;
 		// End of user code
 	}
-	
+	/**
+	 * Fonction permettant de récupérer tous les identifiants des salles sous la forme d'un 
+	 * tableau de chaînes de caractères où chaque ligne contient l'identifiant d'une salle.
+	 * 
+	 * @return
+	 * 		Un tableau de String contenant toutes les informations de tous les groupes.
+	 */
 	public String[] roomsIdToString() {
 		// Start of user code for method roomsIdToString
 		HashSet<Room> RoomsSet = TimeTableDB.RoomsSet;		//R�cup�ration du HashSet contenant les Rooms
@@ -185,7 +190,16 @@ public class TimeTableController implements ITimeTableController {
 		saveDB();
 		return b;
 	}
-
+	
+	/**
+	 * Fonction permettant de récupérer le login du professeur qui a réalisé la réservation dont l'identifiant est bookId dans l'emploi du temps dont l'identifiant est timeTableId. 
+	 * @param timeTableId
+	 * 		L'identifiant de l'emploi du temps
+	 * @param bookId
+	 * 		L'identifiant de réservation
+	 * @return
+	 * 		Le login du professeur qui a fait la réservation.
+	 */
 	@Override
 	public String getTeacherLogin(int timeTableId, int bookId) {
 		// TODO Auto-generated method stub
@@ -233,10 +247,9 @@ public class TimeTableController implements ITimeTableController {
 	@Override
     public boolean removeTimeTable(int timeTableId) {
         Iterator<TimeTable> ItTT = timeTableModel.TimeTableDB.TTSet.iterator() ;    // Cr�ation d'un it�rateur pour parcourir RoomsSet
-        Element ITNewTT = new Element ("Timetables");
         while(ItTT.hasNext()){
                 // on parcourt le set de timetable en cherchant un �l�ment �gal
-                //� l'id du timetablr que l'on veut supprimer
+                //� l'id du timetable que l'on veut supprimer
                 if(ItTT.next().getGroupId()== timeTableId){
                     TimeTable DelTT = new TimeTable(timeTableId);                //Cr�ation d'un Objet TimeTable
                     timeTableModel.TimeTableDB.TTSet.remove(DelTT);                     //Supression de l'emploi du temps
@@ -246,31 +259,73 @@ public class TimeTableController implements ITimeTableController {
             }
             return false;
     }
-	
+	/**
+	 * Fonction qui ajoute une réservation dans l'emploi du temps TimeTableId et qui la sauvegarde dans la base de données
+	 * 
+	 * @param timeTableId
+	 * 		L'identifiant d'emploi du temps
+	 * @param bookingId
+	 * 		L'identifiant de réservation
+	 * @param login
+	 * 		Le login du professeur faisant la réservation
+	 * @param dateBegin
+	 * 		La date de début de réservation
+	 * @param dateEnd
+	 * 		La date de fin de réservation
+	 * @param roomId
+	 * 		L'identifiant de la salle réservée
+	 * @return
+	 * 		Un boolean indiquant si la réservation a bien été faite
+	 */
 	@Override
 	public boolean addBooking(int timeTableId, int bookingId, String login, Date dateBegin, Date dateEnd, int roomId) {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+	/**
+	 * Fonction qui retourne les dates de début et de fin des réservations de l'emploi du temps dont l'identifiant est timeTableId.
+	 * 
+	 * @param timeTableId
+	 * 		L'identifiant d'emploi du temps
+	 * @param dateBegin
+	 * 		Hashtable qui contiendra les dates de début des réservations. La clé de la Hashtable correspond à l'identifiant de réservation.
+	 * @param dateEnd
+	 * 		Hashtable qui contiendra les dates de fin des réservations. La clé de la Hashtable correspond à l'identifiant de réservation.
+	 */
 	@Override
 	public void getBookingsDate(int timeTableId, Hashtable<Integer, Date> dateBegin, Hashtable<Integer, Date> dateEnd) {
 		// TODO Auto-generated method stub
 		
 	}
-
+	/**
+	 * Fonction qui supprime la réservation dont l'identifiant est bookId dans l'emploi du temps timeTableId.
+	 * 
+	 * @param timeTableId
+	 * 		L'identifiant d'emploi du temps
+	 * @param bookId
+	 * 		L'identifiant de réservation à supprimer
+	 * @return
+	 * 		Un boolean indiquant si la réservation a bien été supprimée
+	 */
 	@Override
 	public boolean removeBook(int timeTableId, int bookId) {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+	
+	/**
+	 * Fonction qui récupère le plus grand identifiant de réservation dans l'emploi du temps timeTableId.
+	 * 
+	 * @param timeTableId
+	 * 		L'identifiant d'emploi du temps
+	 * @return
+	 * 		Le plus grand identifiant de réservation
+	 */
 	@Override
 	public int getBookingsMaxId(int timeTableId) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 
 	/**
      * Fonction permettant de récupérer tous les identifiants des réservations de l'emploi du temps timeTableId sous la forme d'un 
@@ -294,20 +349,27 @@ public class TimeTableController implements ITimeTableController {
             i++;
         }
         return TabBookId;
-        // End of user code
     }
-
-	@Override
-	public boolean saveDB() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean loadDB() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    /**
+	 * Fonction sauvegardant la base de donnée dans un fichier XML.
+	 * @return
+	 * 		Un boolean indiquant si la sauvegarde a bien été réalisée.
+	 */
+    @Override
+    public boolean saveDB() {
+        this.TimeTableDB.saveDB();
+        return false;
+    }
+    /**
+	 * Fonction chargeant la base de donnée contenue dans un fichier XML.
+	 * @return
+	 * 		Un boolean indiquant si le chargement a bien été réalisée.
+	 */
+    @Override
+    public boolean loadDB() {
+        this.TimeTableDB.loadDB();
+        return false;
+    }
 	
 	
 }
