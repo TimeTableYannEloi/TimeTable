@@ -21,7 +21,7 @@ public class TimeTableController implements ITimeTableController {
 	/**
 	 * timeTableDB Class.
 	 */
-	public TimeTableDB timeTableDB;
+	public TimeTableDB TimeTableDB;
 
 	// Start of user code (user defined attributes for TimeTableController)
 
@@ -45,7 +45,7 @@ public class TimeTableController implements ITimeTableController {
 	 * @return timeTableDB 
 	 */
 	public TimeTableDB getTimeTableDB() {
-		return this.timeTableDB;
+		return this.TimeTableDB;
 	}
 
 	/**
@@ -53,7 +53,7 @@ public class TimeTableController implements ITimeTableController {
 	 * @param newTimeTableDB 
 	 */
 	public void setTimeTableDB(TimeTableDB newTimeTableDB) {
-		this.timeTableDB=newTimeTableDB;
+		this.TimeTableDB=newTimeTableDB;
 	}
 	
 	/**
@@ -62,7 +62,7 @@ public class TimeTableController implements ITimeTableController {
 	 * 		Le tableau des TabRoomsId en string
 	 */
 	
-	public String[] roomsIdToString() {
+	public String[] roomsToString() {
 		// Start of user code for method roomsIdToString
 		HashSet<Room> RoomsSet = TimeTableDB.RoomsSet;		//Récupération du HashSet contenant les Rooms
 		Iterator<Room> it1 = RoomsSet.iterator();			//Initialisation de l'itérateur et calcul de la longueur du tableau
@@ -77,30 +77,91 @@ public class TimeTableController implements ITimeTableController {
 	    return TabRoomsId;
 		// End of user code
 	}
-
-
-	/**
-	 * Get the values of the different timeTableId in a list of strings
-	 * @return TabTimeTableId
-	 * 		Le tableau des TimeTableId en string
-	 */
-	public String[] roomsToString() {
+	
+	public String[] roomsIdToString() {
 		// Start of user code for method roomsIdToString
-		HashSet<TimeTable> TTSet = TimeTableDB.TTSet;		//Récupération du HashSet contenant les TimeTable
-		Iterator<TimeTable> it1 = TTSet.iterator();			//Initialisation de l'itérateur et calcul de la longueur du tableau
-		int i =TTSet.size();								//Récupération des TimeTableId sous la forme d'int conversion en string et ajout dans le tableau de sortie
-		String TabTimeTableId[] = new String[i];
+		HashSet<Room> RoomsSet = TimeTableDB.RoomsSet;		//Récupération du HashSet contenant les Rooms
+		Iterator<Room> it1 = RoomsSet.iterator();			//Initialisation de l'itérateur et calcul de la longueur du tableau
+		int i =RoomsSet.size();								//Récupération des roomsId sous la forme d'int conversion en string et ajout dans le tableau de sortie
+		String TabRoomsId[] = new String[i];
 		i =0;
 		while (it1.hasNext()) {
-			String cle = "" + it1.hasNext();
-			TabTimeTableId[i]=cle;
-		   	i++;
+			Room RR = (Room)it1;
+			it1.next();
+			String cle = "" + RR.getRoomId();
+	    	TabRoomsId[i]=cle;
+	    	i++;
 		}
-	    return TabTimeTableId;
-		
+	    return TabRoomsId;
+		// End of user code
+	}
+	
+	/**
+	 * Fonction permettant de rÃ©cupÃ©rer tous les identifiants des emplois du temps sous la forme d'un 
+	 * tableau de chaÃ®nes de caractÃ¨res oÃ¹ chaque ligne contient l'identifiant d'un emploi du temps.
+	 * 
+	 * @return
+	 * 		Un tableau de String contenant toutes les identifiants de tous les emplois du temps.
+	 */
+	public String[] timeTablesIDToString(){
+		// Start of user code for method roomsIdToString
+		HashSet<Room> RoomsSet = TimeTableDB.TTSet;		//Récupération du HashSet contenant les Rooms
+		Iterator<Room> it1 = RoomsSet.iterator();			//Initialisation de l'itérateur et calcul de la longueur du tableau
+		int i =RoomsSet.size();								//Récupération des roomsId sous la forme d'int conversion en string et ajout dans le tableau de sortie
+		String TabRoomsId[] = new String[i];
+		i =0;
+		while (it1.hasNext()) {
+            Room RR = (Room)it1.next();
+            String cle = "" + RR.roomId;
+            TabRoomsId[i]=cle;
+            i++;
+        }
+	    return TabRoomsId;
+		// End of user code
 	}
 
 	
+	/**
+     * Fonction qui supprime une salle et qui sauvegarde la base de donnÃ©es. 
+     * @param roomId
+     *         L'identifiant de la salle
+     * @return
+     *         Un boolean indiquant si la salle a bien Ã©tÃ© supprimÃ©e
+     */
+    public boolean removeRoom(int roomId) {
+
+        Iterator<Room> parcourtRooms = TimeTableDB.RoomsSet.iterator();     // Création d'un itérateur pour parcourir RoomsSet
+        while(parcourtRooms.hasNext()){
+            // on parcourt le set de rooms en cherchant un élément égal
+            //à l'id de la room que l'on veut supprimer
+            if(parcourtRooms.next().getRoomId()== roomId){
+                int capacity = parcourtRooms.next().getCapacity();       //Récupération de la capacité de la salle
+                Room Remove = new Room(roomId, capacity);                //Création d'un Objet Room 
+                TimeTableDB.RoomsSet.remove(Remove);                     //Supression de la salle 
+                saveDB();
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+	/**
+	 * Fonction qui crÃ©e un emploi du temps et qui le sauvegarde dans la base de donnÃ©es
+	 * @param timeTableId
+	 * 		L'identifiant d'emploi du temps
+	 * @return
+	 * 		Un boolean indiquant si l'emploi du temps a bien Ã©tÃ© crÃ©Ã©
+	 */
+	public boolean addTimeTable(int timeTableId) {
+        TimeTable NewTT = new TimeTable(timeTableId);
+        if (TimeTableDB.TTSet.contains(NewTT)){
+            TimeTableDB.TTSet.add(NewTT);
+            return true;
+        }
+        return false;
+    }
+
 	/**
 	 * Fonction qui crée une salle et qui la sauvegarde dans la base de données. 
 	 * @param roomId
@@ -131,11 +192,6 @@ public class TimeTableController implements ITimeTableController {
 		return null;
 	}
 
-	@Override
-	public boolean removeRoom(int roomId) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	@Override
 	public int getRoom(int timeTableId, int bookId) {
@@ -143,11 +199,7 @@ public class TimeTableController implements ITimeTableController {
 		return 0;
 	}
 
-	@Override
-	public boolean addTimeTable(int timeTableId) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+
 
 	@Override
 	public boolean removeTimeTable(int timeTableId) {
@@ -179,11 +231,7 @@ public class TimeTableController implements ITimeTableController {
 		return 0;
 	}
 
-	@Override
-	public String[] timeTablesIDToString() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	@Override
 	public String[] booksIdToString(int timeTableId) {
