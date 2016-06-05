@@ -14,33 +14,26 @@ import java.util.*;
  */
 public class TimeTable {
 	/**
-	 * Description of the property groupId.
+	 * Une TimeTable comporte 2 variables : Une id & une collection de reservations, propre à cette TimeTable
 	 */
 	private String timeTableId;
 	public HashSet<Booking> bookings;
 
-	
-	// Start of user code (user defined attributes for TimeTable)
-	
-	// End of user code
 
 	/**
-	 * The constructor.
+	 * Constructeur du TimeTable
+	 * Il possède :
 	 * @param groupId2 
+	 * Et bookings, qui est une collection de reservation propre a cette TimeTable
 	 */
 	public TimeTable (Integer groupId2) {
 		super();
-		// Start of user code constructor for TimeTable)
 		String groupId2s;
 		groupId2s = "" + groupId2;
 		timeTableId=groupId2s;
 		this.bookings = new HashSet<Booking>();
-		// End of user code
 	}
 
-	// Start of user code (user defined methods for TimeTable)
-
-	// End of user code
 	/**
 	 * Returns groupId.
 	 * @return groupId 
@@ -50,14 +43,15 @@ public class TimeTable {
 	}
 
 	/**
-	 * Sets a value to attribute groupId. 
+	 * Pour les changements d'id d'une TimeTable
 	 * @param newGroupId 
 	 */
 	public void settimeTableId(String newtimeTableId) {
 		this.timeTableId = newtimeTableId;
 	}
+	
 	/**
-	 * Add a new booking object to the timetable 
+	 * Ajout d'une reservation, qui doit etre creee au prealable
 	 * @param Booking book
 	 */
 	public void addBooking(Booking book){
@@ -66,12 +60,16 @@ public class TimeTable {
 	
 	
 	/**
-	 * Remove a new booking object to the timetable 
+	 * Supprime une reservation de la collection
 	 * @param Booking book
 	 */
 	public void removeBooking(Booking book){
 		this.bookings.remove(book);
 	}
+	
+	/**
+	 * Renvois la collection de reservation propre a cette TimeTable
+	 */
 	public HashSet<Booking> getBookings() {
 		return this.bookings;
 	}
