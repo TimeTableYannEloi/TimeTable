@@ -8,15 +8,18 @@ import java.util.*;
 // End of user code
 
 /**
- * Description of TimeTable.
+ * Classe TimeTable, constructeur & methodes inherentes
  * 
  * @author Eloi
  */
 public class TimeTable {
 	/**
-	 * Une TimeTable comporte 2 variables : Une id & une collection de reservations, propre à cette TimeTable
+	 * L'id de cette TimeTable, utilisee pour s'y referer
 	 */
 	private String timeTableId;
+	/**
+	 * Collection des reservations contenu dans cette TimeTable
+	 */
 	public HashSet<Booking> bookings;
 
 
@@ -35,7 +38,7 @@ public class TimeTable {
 	}
 
 	/**
-	 * Returns groupId.
+	 * Methode de classe qui renvoit l'id de cette TimeTable
 	 * @return groupId 
 	 */
 	public Object getGroupId() {
@@ -43,7 +46,7 @@ public class TimeTable {
 	}
 
 	/**
-	 * Pour les changements d'id d'une TimeTable
+	 * Methode de classe qui permet de modifier l'id de cette TimeTable
 	 * @param newGroupId 
 	 */
 	public void settimeTableId(String newtimeTableId) {
@@ -51,7 +54,7 @@ public class TimeTable {
 	}
 	
 	/**
-	 * Ajout d'une reservation, qui doit etre creee au prealable
+	 * Methode de classe qui permet d'ajouter une reservation (creee au prealable) à cette TimeTable
 	 * @param Booking book
 	 */
 	public void addBooking(Booking book){
@@ -60,7 +63,7 @@ public class TimeTable {
 	
 	
 	/**
-	 * Supprime une reservation de la collection
+	 * Methode de classe qui permet de supprimer une reservation de cette TimeTable
 	 * @param Booking book
 	 */
 	public void removeBooking(Booking book){
@@ -68,7 +71,8 @@ public class TimeTable {
 	}
 	
 	/**
-	 * Renvois la collection de reservation propre a cette TimeTable
+	 * Methode de classe qui renvoit la collection de reservations qui composent cette TimeTable
+	 * @return bookings
 	 */
 	public HashSet<Booking> getBookings() {
 		return this.bookings;
