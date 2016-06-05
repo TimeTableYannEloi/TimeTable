@@ -19,7 +19,7 @@ import timeTableModel.TimeTableDB;
  */
 public class TimeTableController implements ITimeTableController {
 	/**
-	 * Class timeTableDB.
+	 * timeTableDB Class.
 	 */
 	public TimeTableDB timeTableDB;
 
@@ -59,6 +59,7 @@ public class TimeTableController implements ITimeTableController {
 	/**
 	 * Get the values of the different roomId in a list of strings
 	 * @return TabRoomsId
+	 * 		Le tableau des TabRoomsId en string
 	 */
 	
 	public String[] roomsIdToString() {
@@ -81,6 +82,7 @@ public class TimeTableController implements ITimeTableController {
 	/**
 	 * Get the values of the different timeTableId in a list of strings
 	 * @return TabTimeTableId
+	 * 		Le tableau des TimeTableId en string
 	 */
 	public String[] roomsToString() {
 		// Start of user code for method roomsIdToString
