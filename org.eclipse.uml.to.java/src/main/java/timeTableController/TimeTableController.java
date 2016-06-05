@@ -19,7 +19,7 @@ import timeTableModel.TimeTableDB;
  */
 public class TimeTableController implements ITimeTableController {
 	/**
-	 * Description of the property timeTableDB.
+	 * Class timeTableDB.
 	 */
 	public TimeTableDB timeTableDB;
 
@@ -41,7 +41,7 @@ public class TimeTableController implements ITimeTableController {
 
 	// End of user code
 	/**
-	 * Returns timeTableDB.
+	 * timeTableDB.
 	 * @return timeTableDB 
 	 */
 	public TimeTableDB getTimeTableDB() {
@@ -57,24 +57,19 @@ public class TimeTableController implements ITimeTableController {
 	}
 	
 	/**
-	 * Get the values of the different roomId
+	 * Get the values of the different roomId in a list of strings
 	 * @return TabRoomsId
 	 */
 	
 	public String[] roomsIdToString() {
 		// Start of user code for method roomsIdToString
-		HashSet<Room> RoomsSet = TimeTableDB.RoomsSet;
-		Iterator<Room> it1 = RoomsSet.iterator();
-		int i =0;
-		while (it1.hasNext()) {
-			i++;
-		    it1.next();
-		}
-		Iterator<Room> it2 = RoomsSet.iterator();
+		HashSet<Room> RoomsSet = TimeTableDB.RoomsSet;		//Récupération du HashSet contenant les Rooms
+		Iterator<Room> it1 = RoomsSet.iterator();			//Initialisation de l'itérateur et calcul de la longueur du tableau
+		int i =RoomsSet.size();								//Récupération des roomsId sous la forme d'int conversion en string et ajout dans le tableau de sortie
 		String TabRoomsId[] = new String[i];
 		i =0;
-		while (it2.hasNext()) {
-			String cle = "" + it2.hasNext();
+		while (it1.hasNext()) {
+			String cle = "" + it1.hasNext();
 	    	TabRoomsId[i]=cle;
 	    	i++;
 		}
@@ -84,23 +79,18 @@ public class TimeTableController implements ITimeTableController {
 
 
 	/**
-	 * Get the values of the different timeTableId
+	 * Get the values of the different timeTableId in a list of strings
 	 * @return TabTimeTableId
 	 */
 	public String[] roomsToString() {
 		// Start of user code for method roomsIdToString
-		HashSet<TimeTable> TTSet = TimeTableDB.TTSet;
-		Iterator<TimeTable> it1 = TTSet.iterator();
-		int i =0;
-		while (it1.hasNext()) {
-			i++;
-		    it1.next();
-		}
-		Iterator<TimeTable> it2 = TTSet.iterator();
+		HashSet<TimeTable> TTSet = TimeTableDB.TTSet;		//Récupération du HashSet contenant les TimeTable
+		Iterator<TimeTable> it1 = TTSet.iterator();			//Initialisation de l'itérateur et calcul de la longueur du tableau
+		int i =TTSet.size();								//Récupération des TimeTableId sous la forme d'int conversion en string et ajout dans le tableau de sortie
 		String TabTimeTableId[] = new String[i];
 		i =0;
-		while (it2.hasNext()) {
-			String cle = "" + it2.hasNext();
+		while (it1.hasNext()) {
+			String cle = "" + it1.hasNext();
 			TabTimeTableId[i]=cle;
 		   	i++;
 		}
@@ -110,13 +100,13 @@ public class TimeTableController implements ITimeTableController {
 
 	
 	/**
-	 * Fonction qui crÃ©e une salle et qui la sauvegarde dans la base de donnÃ©es. 
+	 * Fonction qui crée une salle et qui la sauvegarde dans la base de données. 
 	 * @param roomId
 	 * 		L'identifiant de la salle
 	 * @param capacity
-	 * 		La capacitÃ© de la salle
+	 * 		La capacité de la salle
 	 * @return
-	 * 		Un boolean indiquant si la salle a bien Ã©tÃ© crÃ©Ã©e
+	 * 		Un boolean indiquant si la salle a bien été crée
 	 */
 	public boolean addRoom(int roomId, int capacity){
 		HashSet<Room> RoomsSet = TimeTableDB.RoomsSet;
