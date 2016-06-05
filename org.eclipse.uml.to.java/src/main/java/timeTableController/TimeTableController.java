@@ -182,7 +182,7 @@ public class TimeTableController implements ITimeTableController {
 			b=true;
 			RoomsSet.add(newroom);
 		}
-	
+		saveDB();
 		return b;
 	}
 
@@ -191,16 +191,23 @@ public class TimeTableController implements ITimeTableController {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
+	
+	/**
+	 * Fonction qui r√©cup√®re l'identifiant de la salle r√©serv√©e dans l'emploi du temps dont l'identifiant est timeTableId et dont l'identifiant de r√©servation est bookId
+	 * @param timeTableId
+	 * 		L'identifiant d'emploi du temps
+	 * @param bookId
+	 * 		L'identifiant de r√©servation
+	 * @return
+	 * 		L'identifiant de la salle r√©serv√©e si trouvÈe, 0 sinon
+	 */
 	@Override
 	public int getRoom(int timeTableId, int bookId) {
 		HashSet<TimeTable> TTSet = TimeTableDB.TTSet;
 		Iterator<TimeTable> it1=TTSet.iterator();
-		String ttId=""+timeTableId; //conversion du parametre en String
 		while(it1.hasNext()){
 			TimeTable TT=(TimeTable)it1.next();
-			if (TT.getGroupId()==ttId){//Si on a le bon TimeTable, il faut trouver la bonne reservation
+			if (TT.getGroupId()==timeTableId){//Si on a le bon TimeTable, il faut trouver la bonne reservation
 				HashSet<Booking> Booking=TT.getBookings();
 				Iterator<Booking> it2=Booking.iterator();
 				while(it2.hasNext()){
@@ -216,13 +223,30 @@ public class TimeTableController implements ITimeTableController {
 	}
 
 
-
+	/**
+	 * Fonction qui supprime un emploi du temps et qui sauvegarde la base de donn√©es
+	 * @param timeTableId
+	 * 		L'identifiant d'emploi du temps
+	 * @return
+	 * 		Un boolean indiquant si l'emploi du temps a bien √©t√© cr√©√©
+	 */
 	@Override
-	public boolean removeTimeTable(int timeTableId) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
+    public boolean removeTimeTable(int timeTableId) {
+        Iterator<TimeTable> ItTT = timeTableModel.TimeTableDB.TTSet.iterator() ;    // CrÈation d'un itÈrateur pour parcourir RoomsSet
+        Element ITNewTT = new Element ("Timetables");
+        while(ItTT.hasNext()){
+                // on parcourt le set de timetable en cherchant un ÈlÈment Ègal
+                //‡ l'id du timetablr que l'on veut supprimer
+                if(ItTT.next().getGroupId()== timeTableId){
+                    TimeTable DelTT = new TimeTable(timeTableId);                //CrÈation d'un Objet TimeTable
+                    timeTableModel.TimeTableDB.TTSet.remove(DelTT);                     //Supression de l'emploi du temps
+                    saveDB();
+                    return true;
+                }
+            }
+            return false;
+    }
+	
 	@Override
 	public boolean addBooking(int timeTableId, int bookingId, String login, Date dateBegin, Date dateEnd, int roomId) {
 		// TODO Auto-generated method stub

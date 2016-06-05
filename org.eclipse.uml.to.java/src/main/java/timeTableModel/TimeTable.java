@@ -41,7 +41,7 @@ public class TimeTable {
 	 * Methode de classe qui renvoit l'id de cette TimeTable
 	 * @return groupId 
 	 */
-	public String getGroupId() {
+	public int getGroupId() {
 		return this.timeTableId;
 	}
 
