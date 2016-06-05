@@ -10,49 +10,36 @@ import java.util.HashSet;
 // End of user code
 
 /**
- * Description of Room.
+ * Classe Room, constructeur & methodes inherentes
  * 
  * @author Eloi
  */
 public class Room {
 	/**
-	 * Description of the property capacity.
+	 * La capacité est un entier, indiquant le nombre de places qu'offre la room
 	 */
 	public int capacity;
 
 	/**
-	 * Description of the property bookings.
-	 */
-	public HashSet<Booking> bookings = new HashSet<Booking>();
-
-	/**
-	 * Description of the property roomId.
+	 * L'id de la room
 	 */
 	public int roomId;
 
 
-
-	// Start of user code (user defined attributes for Room)
-
-	// End of user code
-
 	/**
-	 * The constructor.
+	 * Constructeur de la room
+	 * @param roomId
+	 * @param capacity
 	 */
 	public Room(int roomId, int capacity) {
-		// Start of user code constructor for Room)
 		super();
 		roomId=this.roomId;
 		capacity=this.capacity;
 		
-		// End of user code
 	}
 
-	// Start of user code (user defined methods for Room)
-
-	// End of user code
 	/**
-	 * Returns capacity.
+	 * Methode de classe qui renvoit la capacite de la room
 	 * @return capacity 
 	 */
 	public int getCapacity() {
@@ -60,7 +47,7 @@ public class Room {
 	}
 
 	/**
-	 * Sets a value to attribute capacity. 
+	 * Methode de classe qui permet de modifier la capacite de la room
 	 * @param newCapacity 
 	 */
 	public void setCapacity(int newCapacity) {
@@ -68,15 +55,7 @@ public class Room {
 	}
 
 	/**
-	 * Returns bookings.
-	 * @return bookings 
-	 */
-	public HashSet<Booking> getBookings() {
-		return this.bookings;
-	}
-
-	/**
-	 * Returns roomId.
+	 * Methode de classe qui renvois l'id de la room
 	 * @return roomId 
 	 */
 	public int getRoomId() {
@@ -84,11 +63,20 @@ public class Room {
 	}
 
 	/**
-	 * Sets a value to attribute roomId. 
+	 * Methode de classe qui permet de modifier l'id de la room
 	 * @param newRoomId 
 	 */
 	public void setRoomId(int newRoomId) {
 		this.roomId = newRoomId;
 	}
+	
+	/**
+	 * Returns bookings.
+	 * @return bookings 
+	 */
+	/*public HashSet<Booking> getBookings() {//incompléte, doit renvoyer toutes les resa qui prennent place dans cette room
+		return this.bookings;
+	}*/
+
 
 }
