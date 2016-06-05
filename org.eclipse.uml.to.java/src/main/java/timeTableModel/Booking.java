@@ -10,44 +10,48 @@ import java.util.Date;
 // End of user code
 
 /**
- * Description of Booking.
+ * Fonction permettant de créer une réservation.
  * 
  * @author Yann
  * @param <EDate>
  */
 public class Booking {
 	/**
-	 * Description of the property bookId.
+	 * bookId est l'Identifiant de la réservation .
 	 */
 	private int bookId;
 
 	/**
-	 * Description of the property login.
+	 * login est l'identifiant du prof qui fait la réservation.
 	 */
 	private String login;
 
 	/**
-	 * Description of the property dateBegin.
+	 * dateBegin est la date de début de la réservation.
 	 */
 	private Date dateBegin;
 
 	/**
-	 * Description of the property dateEnd.
+	 * dateEnd est la date de fin de la réservation.
 	 */
 	private Date dateEnd;
 
 	/**
-	 * Description of the property roomId.
+	 * roomId est l'identifiant de la salle dans laquelle se fait la réservation.
 	 */
 	private int roomId;
 	
-	private int i;
+	
 
 	// Start of user code (user defined attributes for Booking)
 
 
 	/**
-	 * The constructor.
+	 * Le constructeur.
+	 * Une réservation est constituée d'un identifiant, de l'id du prof qui fait la réservation
+	 * d'une date de début et de fin, et de l'identifiant de la salle 
+	 * dans laquelle se fait la réservation.
+	 * 
 	 */
 	public Booking(int bookId, String login,Date dateBegin,Date dateEnd, int roomId) {
 		this.bookId=bookId;
@@ -59,16 +63,20 @@ public class Booking {
 
 	
 	/**
-	 * Sets a value to attribute login. 
-	 * @param loginr 
+	 * Fonction permettant de fixer le login du professeur
+	 * @param login
+	 * 			L'identifiant du professeur 
 	 */
+	
 	public void setlogin(String login) {
 		this.login = login;
 	}
 	
 	
 	/**
-	 * Description of the method getTeacherId.
+	 * Récupère l'identifiant du professeur qui fait la réservation
+	 * @return login
+	 * 			L'identifiant du professeur
 	 */
 	public String getlogin() {
 		return this.login;
@@ -78,7 +86,7 @@ public class Booking {
 
 	/**
 	 * Sets a value to attribute dateBegin. 
-	 * @param datebegin 
+	 * @param dateBegin 
 	 */
 	public void setdateBegin(Date dateBegin) {
 		this.dateBegin = dateBegin;
@@ -87,7 +95,9 @@ public class Booking {
 	
 	
 	/**
-	 * Description of the method getdateBegin.
+	 * Récupère la date de début de la réservation.
+	 * @return dateBegin
+	 * 			La date de début de la réservation
 	 */
 	public Date getdateBegin() {
 		return this.dateBegin;
@@ -95,7 +105,8 @@ public class Booking {
 
 	
 	/**
-	 * Description of the method setdateEnd.
+	 * Sets a value to attribute dateEnd
+	 * @param dateEnd
 	 */
 	public void setdateEnd(Date dateEnd) {
 		this.dateEnd = dateEnd;
@@ -103,7 +114,9 @@ public class Booking {
 
 	
 	/**
-	 * Description of the method getdateEnd.
+	 * Récupère la date de fin de la réservation.
+	 * @return dateEnd
+	 * 			La date de fin de la réservation
 	 */
 	public Date getdateEnd() {
 		return this.dateEnd;
@@ -111,7 +124,9 @@ public class Booking {
 
 	
 	/**
-	 * Description of the method setRoomId.
+	 * Sets a value to attribute roomId. 
+	 * @param roomId 
+	 * 		L'identifiant de la salle  
 	 */
 	public void setRoomId (int roomId) {
 		this.roomId = roomId;
@@ -119,7 +134,9 @@ public class Booking {
 	
 	
 	/**
-	 * Description of the method getRoomId.
+	 * Récupère l'identifiant de la salle dans laquelle se fait la réservation.
+	 *@return roomId
+	 * 			L'identifiant de la salle  
 	 */
 	public int getRoomId() {
 		return this.roomId;
@@ -128,7 +145,7 @@ public class Booking {
 	
 	
 	/**
-	 * Sets a value to attribute login. 
+	 * Sets a value to attribute bookId. 
 	 * @param bookId 
 	 */
 	public void setbookId(int bookId) {
@@ -137,12 +154,12 @@ public class Booking {
 	
 	
 	/**
-	 * Returns login.
-	 * @return login 
+	 * Récupère l'identifiant de la réservation.
+	 * @return bookId 
+	 * 		L'identifiant de la réservation
 	 */
-	public int getbookId() {
-		i = Integer.parseInt(login); 
-		return this.i;
+	public int getbookId() { 
+		return this.bookId;
 		
 	}
 
@@ -156,14 +173,7 @@ public class Booking {
 	}
 	
 
-	/**
-	 * Returns roomId.
-	 * @return roomId 
-	 */
-	public int getroomId() {
-		return this.roomId;
-	}
-
+	
 // End of user code
 
 }
