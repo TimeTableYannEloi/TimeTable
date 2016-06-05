@@ -16,7 +16,7 @@ public class TimeTable {
 	/**
 	 * L'id de cette TimeTable, utilisee pour s'y referer
 	 */
-	private String timeTableId;
+	private int timeTableId;
 	/**
 	 * Collection des reservations contenu dans cette TimeTable
 	 */
@@ -31,9 +31,7 @@ public class TimeTable {
 	 */
 	public TimeTable (Integer groupId2) {
 		super();
-		String groupId2s;
-		groupId2s = "" + groupId2;
-		timeTableId=groupId2s;
+		timeTableId=groupId2;
 		this.bookings = new HashSet<Booking>();
 	}
 
@@ -49,7 +47,7 @@ public class TimeTable {
 	 * Methode de classe qui permet de modifier l'id de cette TimeTable
 	 * @param newGroupId 
 	 */
-	public void settimeTableId(String newtimeTableId) {
+	public void settimeTableId(int newtimeTableId) {
 		this.timeTableId = newtimeTableId;
 	}
 	
