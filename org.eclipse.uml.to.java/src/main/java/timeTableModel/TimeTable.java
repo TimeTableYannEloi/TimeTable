@@ -20,7 +20,7 @@ public class TimeTable {
 	/**
 	 * Collection des reservations contenu dans cette TimeTable
 	 */
-	public HashSet<Booking> bookings;
+	public static HashSet<Booking> bookings;
 
 
 	/**
@@ -41,7 +41,7 @@ public class TimeTable {
 	 * Methode de classe qui renvoit l'id de cette TimeTable
 	 * @return groupId 
 	 */
-	public Object getGroupId() {
+	public String getGroupId() {
 		return this.timeTableId;
 	}
 

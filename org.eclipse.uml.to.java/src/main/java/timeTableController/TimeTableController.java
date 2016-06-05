@@ -105,14 +105,14 @@ public class TimeTableController implements ITimeTableController {
 	 */
 	public String[] timeTablesIDToString(){
 		// Start of user code for method roomsIdToString
-		HashSet<Room> RoomsSet = TimeTableDB.TTSet;		//Récupération du HashSet contenant les Rooms
+		HashSet<Room> RoomsSet = TimeTableDB.RoomsSet;		//Récupération du HashSet contenant les Rooms
 		Iterator<Room> it1 = RoomsSet.iterator();			//Initialisation de l'itérateur et calcul de la longueur du tableau
 		int i =RoomsSet.size();								//Récupération des roomsId sous la forme d'int conversion en string et ajout dans le tableau de sortie
 		String TabRoomsId[] = new String[i];
 		i =0;
 		while (it1.hasNext()) {
             Room RR = (Room)it1.next();
-            String cle = "" + RR.roomId;
+            String cle = "" + RR.getRoomId();
             TabRoomsId[i]=cle;
             i++;
         }
@@ -195,7 +195,23 @@ public class TimeTableController implements ITimeTableController {
 
 	@Override
 	public int getRoom(int timeTableId, int bookId) {
-		// TODO Auto-generated method stub
+		HashSet<TimeTable> TTSet = TimeTableDB.TTSet;
+		Iterator<TimeTable> it1=TTSet.iterator();
+		String ttId=""+timeTableId; //conversion du parametre en String
+		while(it1.hasNext()){
+			TimeTable TT=(TimeTable)it1.next();
+			if (TT.getGroupId()==ttId){//Si on a le bon TimeTable, il faut trouver la bonne reservation
+				HashSet<Booking> Booking=TT.getBookings();
+				Iterator<Booking> it2=Booking.iterator();
+				while(it2.hasNext()){
+					Booking BK=(Booking)it2.next();
+					if(BK.getRoomId()==bookId){
+						int SalleID=BK.getRoomId();
+						return SalleID;
+					}
+				}
+			}
+		}
 		return 0;
 	}
 
@@ -232,12 +248,30 @@ public class TimeTableController implements ITimeTableController {
 	}
 
 
-
-	@Override
-	public String[] booksIdToString(int timeTableId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	/**
+     * Fonction permettant de rÃ©cupÃ©rer tous les identifiants des rÃ©servations de l'emploi du temps timeTableId sous la forme d'un 
+     * tableau de chaÃ®nes de caractÃ¨res oÃ¹ chaque ligne contient l'identifiant d'une rÃ©servation.
+     * 
+     * @param timeTableId
+     *             Un identifiant d'emploi du temps
+     * @return
+     *         Un tableau de String contenant toutes les informations de tous les groupes.
+     */
+    public String[] booksIDToString(){
+        HashSet<Booking> Bookings = TimeTable.bookings;        //Récupération du HashSet contenant les Books
+        Iterator<Booking> it1 = Bookings.iterator();            //Initialisation de l'itérateur et calcul de la longueur du tableau
+        int i =Bookings.size();                                //Récupération des booksId sous la forme d'int conversion en string et ajout dans le tableau de sortie
+        String TabBookId[] = new String[i];
+        i =0;
+        while (it1.hasNext()) {
+            Booking BB = (Booking)it1.next();
+            String cle = "" + BB.getbookId();
+            TabBookId[i]=cle;
+            i++;
+        }
+        return TabBookId;
+        // End of user code
+    }
 
 	@Override
 	public boolean saveDB() {
